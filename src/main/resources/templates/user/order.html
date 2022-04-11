@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+      .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+      }
+
+      .rate:not(:checked)>input {
+        position: absolute;
+        top: -9999px;
+      }
+
+      .rate:not(:checked)>label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+      }
+
+      .rate:not(:checked)>label:before {
+        content: '★ ';
+      }
+
+      .rate>input:checked~label {
+        color: #ffc700;
+      }
+
+      .rate:not(:checked)>label:hover,
+      .rate:not(:checked)>label:hover~label {
+        color: #deb217;
+      }
+
+      .rate>input:checked+label:hover,
+      .rate>input:checked+label:hover~label,
+      .rate>input:checked~label:hover,
+      .rate>input:checked~label:hover~label,
+      .rate>label:hover~input:checked~label {
+        color: #c59b08;
+      }
+      p{
+        margin-bottom: 0rem;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+              class="text-black">Đơn hàng</strong></div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Đánh giá sản phẩm</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="display: flex; justify-content: center;">
+            <div class="rate1" >
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary" onclick="doRate()">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="site-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="site-blocks-table">
+            <th:block th:each="order : ${orders}">
+              <div style="margin-bottom: 2em;">
+              <table style="border: 1px solid #d2d2d2;" th:id="${order.idOrder}">
+                <thead>
+                  <tr>
+                    <th colspan="2">Mã đơn hàng: <span th:utext="${order.idOrder}"></span> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <th:block th:each="orderInfo : ${order.orderInfoModels}">
+                    <tr>
+                      <td name="img"  style="text-align: left; display: flex; "><img style="width:20%; border: 1.5px solid #cccccc;" th:src="${orderInfo.product.image.avatar}" alt="">
+                      
+                        <div style="display: block; margin-left: 1em;"> 
+                        <h6 th:utext="${orderInfo.product.name}"></h6>
+                        <p name="idProduct">Mã sản phẩm: <span th:utext="${orderInfo.product.idProduct}"></span></p>
+                        <p>Size: <span th:utext="${orderInfo.product.size}"></span> 
+                        </p>
+                        <p>Màu: <span th:utext="${orderInfo.product.color}"></span></p>
+                        <p>Số lượng: x<span th:utext="${orderInfo.orderInfo.quantity}"></span></p>
+                       
+                      </div>  
+                    
+                      <td style="text-align: end;" class="item-price" th:utext="${orderInfo.orderInfo.price}"></td>
+                    </tr>
+                  </th:block>                
+                </tbody>
+                <tfoot>
+                  <td style="text-align: left;border-top: 1px solid #d2d2d2;background: #fffdf6;">
+                    <div style="display: flex;">
+                     <h6 style="color: #0053b9; margin-right: 2em;" th:utext="${order.status}"></h6>
+                     <button th:unless="${order.checkRate}" onclick="getId(this)" th:name="${order.idOrder}" type="button" class="btn btn-primary btn-rating" data-toggle="modal"
+                     data-target="#exampleModalCenter">
+                     Đánh giá sản phẩm </button>
+                     <h6 th:if="${order.checkRate}"><span style="color: green;"><i class="fas fa-check"></i></span> Đã đánh giá</h6>
+                    </div>
+                    </td>
+                  <td style="text-align: right;border-top: 1px solid #d2d2d2;background: #fffdf6; display: flex;">
+                    <!-- <button class="btn btn-sm btn-primary product-rating">Đánh giá sản phẩm</button> -->
+                    
+                        <div>
+                    <h6 style="display: flex; margin-left: 3em;">Tổng: <span class="item-price" th:utext="${order.price}"></span></h6></td>
+                  </div>
+                  </tfoot>
+              </table>
+            </div>
+            </th:block>
+         
+            <!-- <table class="table table-bordered" id="order-table">
+              <thead>
+                <tr>
+            
+                  <th class="product-thumbnail">Tên sản phẩm</th>
+                  <th class="product-name">Ảnh</th>
+                  <th class="product-size">Size</th>
+                  <th class="product-price">Đơn giá</th>
+                  <th class="product-quantity">Số lượng</th>
+                  <th class="product-total">Tổng giá</th>
+                  <th class="product-total">Trạng thái</th>
+                  <th class="product-total">Đánh giá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:if="${empty}">
+                  <td colspan="7" th:utext="${empty}"></td>
+                </tr>
+                <th:block th:each="order : ${orders}">
+
+                  <tr>
+                    <td class="product-id" th:utext="${order.idOrderDetail}" hidden></td>              
+                    <td class="product-id" th:utext="${order.product.idProduct}" hidden></td>              
+                    <td class="product-name">
+                      <h2 class="h5 text-black" th:utext="${order.product.name}"></h2>
+                    </td>
+                    <td class="product-thumbnail">
+                      <img th:src="${order.product.image.avatar}" alt="Image" class="img-fluid">
+                    </td>
+                    <td th:utext="${order.product.size}">$49.00</td>
+                    <td class="item-price" th:if="${order.product.isDiscount}" th:utext="${order.product.costDiscount}"></td>
+                    <td class="item-price" th:unless="${order.product.isDiscount}" th:utext="${order.product.cost}"></td>
+
+                    <td th:utext="${order.quantity}"></td>
+                    <td class="item-price" style="font-weight: 500;" th:utext="${order.cost}"></td>
+                    <td class="status" th:utext="${order.status.deliveryStatus}"
+                      style="color: rgb(1, 202, 11);font-weight: bold;"></td>
+                    <td class="product-rating" th:unless="${order.checkRate}">
+                      <button type="button" class="btn btn-danger btn-rating" data-toggle="modal"
+                        data-target="#exampleModalCenter">
+                        Đánh giá
+                      </button>
+                    </td>
+                    <td class="product-rating" th:if="${order.checkRate}">
+                      <span style="color: green;"><i class="fas fa-check"></i></span>
+                    </td>
+                  </tr>
+                </th:block>
+              </tbody>
+            </table> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + "đ";
+      }
+
+      var statuss = document.querySelectorAll(".status");
+      var rate = document.querySelectorAll(".product-rating");
+      for (var i = 0; i < statuss.length; ++i) {
+        console.log(statuss[i].innerText)
+        if (statuss[i].innerText !== "Đã nhận hàng") {
+          rate[i].textContent = "Chờ nhận hàng để đánh giá!";
+        }
+      }
+
+      // $("#order-table").on('click', '.btn-rating', function () {
+      //   // get the current row
+      //   // var currentRow = $(this).closest("tr");
+      //   // var col1 = currentRow.find("td:eq(0)").text();
+      //   // var col2 = currentRow.find("td:eq(1)").text();
+      //   // document.querySelector('#idProduct').value = col2;
+      //   // document.querySelector('#idOrder').value = col1;
+      //   console.log(this.name)  
+      // });  
+
+  
+
+      function doRate() {
+        var ratehtml = document.querySelectorAll(".rate");
+        var rates = [];
+        var idProducts = [];
+        var idOrder = 0;
+        ratehtml.forEach(element => {
+          var rate = element.querySelector("input[type='radio']:checked").value;
+          var id = element.querySelector("input[name='idProduct']").value;
+          idOrder = element.querySelector("input[name='idOrder']").value;
+          rates.push(rate);
+          idProducts.push(id);
+        });
+        
+        var data ={
+          idOrder: idOrder,
+          idProduct: idProducts,
+          rate: rates
+        }
+        $.ajax({
+          method: 'post',
+          url: '/api/rating',
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: res => {
+            alert("Đánh giá thành công!");
+            location.reload();
+          }
+        });
+        console.log(rates);
+        console.log(idProduct);
+
+        // let data = {
+        //   idOrder: $('#idOrder').val(),
+        //   idProduct: $('#idProduct').val(),
+        //   rate: document.querySelector(".rate input[type='radio']:checked").value
+        // }
+        // console.log(data);
+        // $.ajax({
+        //   type: 'post',
+        //   url: '/api/rating',
+        //   contentType: 'application/json',
+        //   data: JSON.stringify(data),
+        //   success: function () {
+        //     $('#exampleModalCenter').modal('hide');
+        //     location.reload();
+        //   }
+        // })
+      }
+
+      function getId(a){
+        var id = a.name;
+        var table = document.getElementById(id);
+        var tr = table.querySelectorAll('tbody tr');
+        var ratehtml = $('.rate1');
+        var html = '';
+        tr.forEach(element => {
+          var idProduct = element.querySelector("p[name='idProduct'] span").textContent;
+          var src = element.querySelector("td[name='img'] img").src;    
+          var html2 = `<div class ="rate" style="margin-bottom: 2em;">
+              <img src="${src}" width="15%"></a>              
+              <input type="text" name="idOrder"  value="${id}">
+              <input type="text" name="idProduct" value="${idProduct}">
+              <input type="radio" id="star5+${idProduct}" name="rate+${idProduct}" value="5" checked />
+              <label for="star5+${idProduct}" title="5 sao">5 stars</label>
+              <input type="radio" id="star4+${idProduct}"  name="rate+${idProduct}" value="4" />
+              <label for="star4+${idProduct}" title="4 sao">4 stars</label>
+              <input type="radio" id="star3+${idProduct}"  name="rate+${idProduct}" value="3" />
+              <label for="star3+${idProduct}" title="3 sao">3 stars</label>
+              <input type="radio" id="star2+${idProduct}"  name="rate+${idProduct}" value="2" />
+              <label for="star2+${idProduct}" title="2 sao">2 stars</label>
+              <input type="radio"  id="star1+${idProduct}" name="rate+${idProduct}" value="1" />
+              <label for="star1+${idProduct}"  title="1 sao">1 star</label>
+        
+              </div>
+              <br>`
+              html += html2;
+        });
+        ratehtml.html(html);
+        console.log(ratehtml);
+      }
+
+    </script>
+  </th:block>
+</body>
+
+</html>

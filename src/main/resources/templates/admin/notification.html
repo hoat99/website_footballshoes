@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title th:utext="${title}"></title>
+
+  <th:block id="custom-style">
+    
+  </th:block>
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid" id="mainContent">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="margin-bottom: 50px;">
+                <h3 style="text-align: center; margin-top: 50px; margin-bottom: 30px;" >Gửi thông báo</h3>
+                <form>
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="title" name="title" class="form-control" />
+                        <label class="form-label" for="title">Tiêu đề thông báo</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <textarea  type="text" id="content" name="content" class="form-control" rows="4" > </textarea>
+                        <label class="form-label" for="content">Nội dung thông báo</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="link" name="link" class="form-control" />
+                        <label class="form-label" for="link">Liên kết khi bấm vào thông báo</label>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" id="btn-send-noti" class="btn btn-primary">Gửi thông báo</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+        </div> 
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<th:block id="custom-script">
+    <script>
+        const sendNoti = async () => {
+            JsLoadingOverlay.show();
+            let data = {
+                title: document.getElementById("title").value,
+                content: $('textarea#content').val(),
+                link: document.getElementById("link").value
+            }
+            console.log(data);
+            try {
+                let result = await axios.post('/api/send-batch-notification', data);
+                alert("Gửi thông báo thành công!");
+                // Swal.fire({
+                //     icon: 'success',
+                //     title: 'Gửi thông báo thành công!'
+                // });
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Oops...',
+                //     text: 'Something went wrong!'
+                // })
+            } catch (e) {
+                console.log(e);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gửi thông báo không thành công!'
+                });
+            }
+            JsLoadingOverlay.hide();
+        }
+
+        document.getElementById("btn-send-noti").onclick = () => sendNoti();
+    </script>
+</th:block>
+</body>
+
+</html>

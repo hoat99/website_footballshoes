@@ -1,0 +1,249 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+  ~{:: #custom-style},
+  ~{:: #mainContent},
+  ~{:: #custom-script}
+ )}">
+
+<head>
+  <th:block id="custom-style">
+      <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+      <title th:utext="${title}"></title>
+  </th:block>
+</head>
+
+<body>
+  <div id="mainContent">
+      <div class="container" style="padding-top: 2em;">
+          <div class="row">
+              <p>
+                  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
+                      aria-expanded="false" aria-controls="multiCollapseExample1">Tạo bài viết</a>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse"
+                      data-target="#multiCollapseExample2" aria-expanded="false"
+                      aria-controls="multiCollapseExample2">Thêm ảnh sản phẩm</button>
+              </p>
+              <div class="container" style="padding-top: 2em;">
+              <div class="row">
+                  <div class="col">
+                      <div class="collapse" id="multiCollapseExample1">
+                          <div class="card card-body">
+                              <div class="models">
+                                  <div class="text-right">
+                                      <label for="inputPassword2" class="sr-only">Từ khóa</label>
+                                      <input type="text" name="search-img" class="search-img" id="search-img"
+                                          placeholder="Nhập tên sản phẩm">
+                                      <button type="submit" class="btn btn-primary mb-2" onclick="change();">Tìm
+                                          kiếm</button>
+                                  </div>
+                                  <div class="col-md-12">
+                                      <div class="container">
+                                          <div class="row">
+                                              <div class="col-md-8" style="margin-bottom: 50px;">
+                                                  <form method="post">
+                                                      <textarea name="editor1"></textarea>
+                                                      <label for="">Tên sản phẩm: </label>
+                                                      <input type="text" id="nameProduct" name="nameProduct">
+                                                      <button id="btnCreate" type="button" class="btn btn-primary">Tạo
+                                                          bài viết</button>
+                                                  </form>
+                                              </div>
+                                              <div class="col-md-4 result" style="display: none;" id="result">
+                                                  <p id="notFound" style="color: red;display: none;">Ko tìm thấy bản
+                                                      ghi nào!</p>
+                                                  <table class="table table-striped">
+                                                      <thead>
+                                                          <tr>
+                                                              <th scope="col">Tên</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                          <th:block th:each="imageArticle : ${imageArticles}">
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td th:utext="${imageArticle.nameProduct}"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img1}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img2}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img3}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img4}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img5}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                                              <tr th:class="${imageArticle.nameProduct}">
+                                                                  <td><img th:src="${imageArticle.img6}" alt=""
+                                                                          width="50%"></td>
+                                                              </tr>
+                                              </div>
+                                              </th:block>
+                                              </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="container" style="padding-top: 2em;">
+                  <div class="row">
+                  <div class="col">
+                      <div class="collapse" id="multiCollapseExample2">
+                          <div class="card card-body">
+                              <div class="container">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <h3 style="text-align: center;">Create</h3>
+                                          <br>
+                                          <form action="/create-image-article" method="POST"
+                                              enctype="multipart/form-data">
+                                              <div class="form-group">
+                                                  <label for="exampleInputPassword1">Tên sản phẩm </label>
+                                                  <input name="name" type="text" class="form-control" id="name">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 1</label>
+                                                  <input name="img1" id="img1" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 2</label>
+                                                  <input name="img2" id="img2" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 3</label>
+                                                  <input name="img3" id="im3" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 4</label>
+                                                  <input name="img4" id="im4" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 5</label>
+                                                  <input name="img5" id="img5" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">Ảnh 6</label>
+                                                  <input name="img6" id="img6" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image">
+                                              </div>
+                                              <button type="submit" class="btn btn-primary">Create</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <th:block id="custom-script">
+      <script>
+          CKEDITOR.replace('editor1');
+          function abc() {
+              var data = CKEDITOR.instances.editor1.getData();
+              console.log(data);
+          }
+
+          function createArticle() {
+              let data = {
+                  nameProduct: $('#nameProduct').val(),
+                  content: CKEDITOR.instances.editor1.getData()
+              }
+              $.ajax({
+                  method: 'post',
+                  url: '/create-article',
+                  data: data,
+                  success: res => {
+                      alert("thêm thành công!");
+                      console.log(data);
+                  }
+              });
+          }
+
+          $('#btnCreate').click(() => {
+
+              createArticle();
+          });
+
+
+
+          //filter img
+          function change() {
+              var value = document.getElementById('search-img').value;
+              console.log(value);
+              filterResults(value);
+          }
+          function filterResults(filters) {
+              var rElems = document.querySelectorAll(".result table tbody tr");
+              var table1 = document.getElementById("result");
+              var hiddenElems = [];
+
+              if (!rElems || rElems.length <= 0) {
+                  return;
+              }
+              for (var i = 0; i < rElems.length; i++) {
+                  var el = rElems[i];
+                  var isHidden = true;
+                  if (el.className === filters) {
+                      isHidden = false;
+                  }
+                  if (isHidden) {
+                      hiddenElems.push(el);
+                  }
+              }
+
+              if (hiddenElems.length === rElems.length) {
+                  document.getElementById('notFound').style.display = "block";
+                  table1.style.display = "none";
+
+              } else {
+                  document.getElementById('notFound').style.display = "none";
+                  table1.style.display = "block";
+
+              }
+
+              for (var i = 0; i < rElems.length; i++) {
+                  rElems[i].style.display = "block";
+                  table1.style.display = "block";
+              }
+
+              if (hiddenElems.length <= 0) {
+                  return;
+              }
+
+              for (var i = 0; i < hiddenElems.length; i++) {
+                  hiddenElems[i].style.display = "none";
+              }
+          }
+      </script>
+  </th:block>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+  th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+      .contact ul{
+        list-style-type: none;
+        margin-left: -39px;
+      }
+      .contact strong{
+        font-weight: bold;
+      }
+      .contactMail input{
+        margin-bottom: 1em;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+    <div id="mainContent">
+    <div class="custom-border-bottom py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+              class="text-black">Liên hệ</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 col-sm-12">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1260.9744481253178!2d105.81136930734826!3d21.01347504331236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab438bbafeeb%3A0xb97ca6f7e88ba308!2sDevmaster!5e0!3m2!1svi!2s!4v1639915842006!5m2!1svi!2s"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="col-md-5 col-sm-12 contact">
+          <div class="wrapbox-content-page-contact">
+            <div class="header-page-contact">
+              <h1 class="text-black">Liên hệ</h1>
+            </div>
+            <div class="box-info-contact">
+              <ul class="list-info">
+                <li>
+                  <p>Địa chỉ chúng tôi</p>
+                  <p><strong>Công ty TNHH AUTHENTIC : 213 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội </strong></p>
+                </li>
+                <li>
+                  <p>Email chúng tôi</p>
+                  <p><strong>nongvanhoat1999@gmail.com</strong></p>
+                </li>
+                <li>
+                  <p>Điện thoại</p>
+                  <p><strong>0377.254.742</strong></p>
+                </li>
+                <li>
+                  <p>Thời gian làm việc</p>
+                  <p><strong>Thứ 2 đến Thứ CN từ 9h đến 21h</strong></p>
+                </li>
+              </ul>
+            </div>
+            <div class="box-send-contact">
+              <h2 class="text-black">Gửi thắc mắc cho chúng tôi</h2>
+              <div id=" contactFormWrapper">
+                <form action="/send-mail" class="contact-form" method="post">
+                  <!-- <input name="form_type" type="hidden" value="contact">
+                  <input name="utf8" type="hidden" value="✓"> -->
+
+
+                  <div class="contact-form contactMail">
+                    <div class="row">
+                      <div class="col-sm-12 col-xs-12">
+                        <div class="input-group">
+                          <input style="margin-bottom: 1em;" required="" type="text" name="name" id="name" class="form-control"
+                            placeholder="Tên của bạn" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-xs-12">
+                        <div class="input-group">
+                          <input style="margin-bottom: 1em;" required="" type="text" name="mailFrom" id="mailFrom" class="form-control"
+                            placeholder="Email của bạn" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-xs-12">
+                        <div class="input-group">
+                          <input style="margin-bottom: 1em;" pattern="[0-9]{10,12}" required="" type="text" name="phone" id="phone"
+                            class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-xs-12">
+                        <div class="input-group">
+                          <textarea style="margin-bottom: 1em;width: 100%;"  name="content" id="content" placeholder="Nội dung"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-xs-12">
+                        <button onclick="alert('Gửi thành công, chúng tôi sẽ sớm phản hồi bạn')" style="margin-left: 1em;" class="btn btn-primary">Gửi cho chúng tôi</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <input id="cde3a6f8346a4f49bb0cced61adec66d" name="g-recaptcha-response" type="hidden"
+                    value="03AGdBq24-OPxwlEJzafqyHlE1LR3a0jn9pJ7YU0_v3Aj418WzpXl8il1WC8KrJXxD1bjO8XCY90hZwt5MACiMjHv3XBpbimEYqNey-q2qHqdj4_d4WqlS8YYTVyFdCBlu7IuXjQYAE9Y4HHKuyAGGwuInDN6_JfvoqQV0OojyapjG80-zBFwpzFpxyDFt2nHPJ04kRmld9A2n4BmFgglKF_alPqMdR5f3z_Cvp2PugRf1nhlxsfUuuAJZVcqkLLhlXV0mPkYXdvuKwtWkS9zfr-raVHK22S0q-zH4UP0ZP00XbP2rQ9r4PKaToYK8wXhlwZ3dK9cz4POAO5A9KccrydTK-82l1xQUZLr_sIGCJ0i2d8P_G83-woFc_zko53LPu_mk5ajt2D8Okhl1VvRN1LXRv3wN6h-auOjVM_Q7jAMfgoymgeTDjcI-nH9Fakqt6XAydLPHFGHu5l17tP3GYemC_b6G9IBmBpCb48aa4ddu6Y96e89YbjyQ5TM5FKBar81f9ql3AP9M"> -->
+                  <!-- <script
+                    src="https://www.google.com/recaptcha/api.js?render=6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-"></script>
+                  <script>grecaptcha.ready(function () { grecaptcha.execute('6LdD18MUAAAAAHqKl3Avv8W-tREL6LangePxQLM-', { action: 'submit' }).then(function (token) { document.getElementById('cde3a6f8346a4f49bb0cced61adec66d').value = token; }); });</script> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+
+  </th:block>
+</body>
+</html>

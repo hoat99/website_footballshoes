@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+
+    <!-- <div class="site-blocks-cover" data-aos="fade">
+      <div class="container">
+        <div class="row" >
+          
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+            <h2 class="sub-title" th:utext="${selectedBanner.shortDescription}"></h2>
+            <h1 th:utext="${selectedBanner.content}"></h1>
+            <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img th:src="${selectedBanner.img}" alt="Image" style="width: 100%;" class="img-fluid" >
+          </div>
+         
+        </div>
+      </div>
+    </div>  -->
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+              class="text-black">Tìm kiếm</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+<div class="container">
+  <h6 style="margin-top: 2em">Kết quả tìm kiếm cho: '[[${keyword}]]'</h6>
+   <hr>
+ <div class="row mb-5" style="text-align: center;">
+   
+  <th:block th:each="product : ${products}">  
+    <div class="col-lg-3 col-md-3 item-entry mb-2">
+      <a th:href="@{/shop-single/}+${product.idProduct}" class="product-item md-height bg-white d-block">
+        <img th:src="${product.img}" alt="Image" class="img-fluid">
+      </a>
+      <h2 class="item-title"><a th:href="@{/shop-single/}+${product.idProduct}" th:utext="${product.name}">Gray Shoe</a></h2>
+      <div th:if="${product.isDiscount}">
+        <del style="color: #a4a4a4;font-weight: bolder;" class="item-price" th:utext="${product.cost}">$28.00</del>
+        <strong style="font-size: larger;color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.discount}" >$28.00</strong>
+      </div>
+      <div th:unless="${product.isDiscount}">
+        <strong style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.cost}" >$28.00</strong>
+      </div>
+      <div style="color: #ffb329;" class="star-rating" th:if="${product.rate}" th:text="${product.rate}">
+      </div>
+    </div>
+  </th:block>
+  </div>
+  <h5 class="text-center" th:if="${notFound}" th:utext="${notFound}"></h5>
+  <div class="row " th:unless="${notFound}" >
+    <div class="col-md-12 text-center">
+      <div class="site-block-27">
+        <ul class="pagination d-block">
+          <li th:if="${activePage}!=1"><a th:href="@{/search/(pageNumber=${activePage - 1} ,pageSize=${pageSize})}">&lt;</a></li>
+          <li th:unless="${activePage}!=1"><a href="#" aria-disabled="true">&lt;</a></li>
+          <li th:each="item : ${paginationList}" th:classappend="${item}==${activePage} ? 'active' : ''">
+            <a th:href="@{/search/(pageNumber=${item},pageSize=${pageSize})}" th:utext="${item}">1</a>
+          </li>
+          <li th:if="${activePage}!=${paginationList.size()}"><a th:href="@{/search/(pageNumber=${activePage + 1},pageSize=${pageSize})}">&gt;</a></li>
+          <li th:unless="${activePage}!=${paginationList.size()}"><a href="#" aria-disabled="true">&gt;</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="site-blocks-cover inner-page py-5" data-aos="fade" style="margin-top: 2em;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+            <h2 class="sub-title">#New Summer Collection 2019</h2>
+            <h1>New Shoes</h1>
+            <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img src="images/lionel-messi2.png" alt="Image" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+<script>
+  function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + "đ";
+      }
+
+      var ratingElement = document.querySelectorAll('.star-rating');
+      ratingElement.forEach(element => {
+        var rate = parseFloat(element.textContent);
+        var starRate = "";
+        for ( ; rate>0 ; --rate){
+          if(rate-1 === -0.5){
+            starRate += "<i class=\"fas fa-star-half-alt\"></i>"
+          }else{
+            starRate += "<i class=\"fas fa-star\"></i>"
+          }   
+        }        
+        element.innerHTML = starRate;
+      });
+</script>
+  </th:block>
+</body>
+
+</html>

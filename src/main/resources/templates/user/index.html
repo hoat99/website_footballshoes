@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <link rel="stylesheet" href="/css/index.css">
+    <style>
+      .zoom img:hover {
+        max-width: 250px;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+    <div class="site-blocks-cover" data-aos="fade">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+              <h2 class="sub-title" th:utext="${selectedBanner.shortDescription}"></h2>
+              <h1 th:utext="${selectedBanner.content}"></h1>
+              <p><a th:href="@{/shop}" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img th:src="${selectedBanner.img}" alt="Image" style="width: 100%;" class="img-fluid">
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="site-section">
+      <div class="container">
+        <div class="title-section mb-5">
+          <h2 class="text-uppercase">Thương hiệu</h2>
+        </div>
+        <div class="row align-items-stretch">
+          <th:block th:each="strademark : ${strademarks}">
+            <div class="col-lg-3">
+              <div class="product-item sm-height">
+                <b>
+                  <a th:href="@{/shop/(option=search , strademark=${strademark.name})}" class="product-category"
+                    th:utext="${strademark.name}" id="name" name="name"
+                    style="color: white ;letter-spacing: 3px; text-transform: uppercase; top: 80%; border-radius: 50px;box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;">
+                  </a></b>
+                <img th:src="${strademark.img}" alt="Image" class="img-fluid" style="width: 100%; top: 2%;">
+              </div>
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section mb-5 col-12">
+            <h2 class="text-uppercase">Sản phẩm phổ biến</h2>
+          </div>
+        </div>
+        <div class="row">
+          <th:block th:each="popularProduct : ${popularProducts}">
+            <div class="col-lg-4 col-md-6 item-entry mb-4" style="text-align: center;">
+              <a th:href="@{/shop-single/}+${popularProduct.idProduct}" class="product-item zoom md-height d-block">
+                <img th:src="${popularProduct.img}" alt="Image" class="img-fluid">
+              </a>
+              <h2 class="item-title"><a th:href="@{/shop-single/}+${popularProduct.idProduct}"
+                  th:utext="${popularProduct.name}">Gray Shoe</a></h2>
+              <div th:if="${popularProduct.isDiscount}">
+                <del style="color: #a4a4a4;font-weight: bolder;" class="item-price" th:utext="${popularProduct.cost}">$28.00</del>
+                <strong style="font-size: larger;color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${popularProduct.discount}" >$28.00</strong>
+              </div>
+              <div th:unless="${popularProduct.isDiscount}">
+                <strong style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${popularProduct.cost}" >$28.00</strong>
+              </div>
+              <div style="color: #ffb329;" class="star-rating" th:if="${popularProduct.rate}" th:text="${popularProduct.rate}"></div>
+
+            </div>
+          </th:block>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="title-section text-center mb-5 col-12">
+            <h2 class="text-uppercase">Sản phẩm mới nhất</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 block-3">
+            <div class="nonloop-block-3 owl-carousel" style="text-align: center;">
+              <th:block th:each="lastestProduct : ${lastestProducts}">
+                <div class="item">
+                  <div class="item-entry">
+                    <a th:href="@{/shop-single/}+${lastestProduct.idProduct}"
+                      class="product-item zoom md-height d-block">
+                      <img th:src="${lastestProduct.img}" alt="Image" class="img-fluid">
+                    </a>
+                    <h2 class="item-title"><a th:href="@{/shop-single/}+${lastestProduct.idProduct}"
+                        th:utext="${lastestProduct.name}">Smooth Cloth</a></h2>
+                    <div th:if="${lastestProduct.isDiscount}">
+                      <del style="color: #a4a4a4; font-weight: bolder;" class="item-price" th:utext="${lastestProduct.cost}">$28.00</del>
+                      <strong style="font-size: larger;color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${lastestProduct.discount}" >$28.00</strong>
+                    </div>
+                    <div th:unless="${lastestProduct.isDiscount}">
+                      <strong style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${lastestProduct.cost}" >$28.00</strong>
+                    </div>
+                    <div style="color: #ffb329;" class="star-rating" th:if="${lastestProduct.rate}" th:text="${lastestProduct.rate}"></div>
+
+                  </div>
+                </div>
+              </th:block>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-blocks-cover inner-page py-5" data-aos="fade">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto order-md-2 align-self-start">
+            <div class="site-block-cover-content">
+              <h2 class="sub-title">#New Summer Collection 2019</h2>
+              <h1>New Shoes</h1>
+              <p><a href="/shop" class="btn btn-black rounded-0">Shop Now</a></p>
+            </div>
+          </div>
+          <div class="col-md-6 order-1 align-self-end">
+            <img src="images/lionel-messi2.png" alt="Image" class="img-fluid" width="100%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + "đ";
+      }
+
+      var ratingElement = document.querySelectorAll('.star-rating');
+      ratingElement.forEach(element => {
+        // var rate = parseFloat(element.textContent);
+        var rate = 4;
+        var array = new Array();
+        var starRate = "";
+        for ( ; rate>0 ; --rate){
+          if(rate-1 === -0.5){
+            // array.push(rate);
+            starRate += "<i class=\"fas fa-star-half-alt\"></i>"
+          }else{
+            // array.push(1);
+            starRate += "<i class=\"fas fa-star\"></i>"
+          }   
+        }        
+        element.innerHTML = starRate;
+      });
+    </script>
+  </th:block>
+</body>
+
+</html>

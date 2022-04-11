@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title th:utext="${title}"></title>
+
+  <th:block id="custom-style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      a{
+        color: black;
+      }
+      a:hover{
+        color: #007bff;
+      }
+    </style>
+  </th:block>
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid" id="mainContent">
+        <div class="container-fluid">
+          <h5 class="mb-2">Danh mục</h5>
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/brand">
+              <div class="info-box">
+                <span class="info-box-icon bg-info"><i class="fa fa-fa"></i>
+                </span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Thương hiệu</span>
+                  <span class="info-box-number">Quản lí thương hiệu</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/banner">
+              <div class="info-box">
+                <span class="info-box-icon bg-success"><i class="fas fa-map-signs"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Banner</span>
+                  <span class="info-box-number">Quản lí banner</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/product">
+              <div class="info-box">
+                <span class="info-box-icon bg-warning"><i class="fab fa-product-hunt"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Sản phẩm</span>
+                  <span class="info-box-number">Quản lí sản phẩm</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/supplier">
+              <div class="info-box">
+                <span class="info-box-icon bg-warning"><i class="fas fa-warehouse"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Nhà cung cấp</span>
+                  <span class="info-box-number">Quản lí Nhà cung cấp</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/article-product">
+              <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="fas fa-newspaper"></i></i></span>              
+                <div class="info-box-content">
+                  <span class="info-box-text">Bài viết sản phẩm</span>
+                  <span class="info-box-number">Quản lí bài viết sản phẩm</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              </a>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/image">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="far fa-images"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Hình ảnh sản phẩm</span>
+                  <span class="info-box-number">Quản lý hình ảnh sản phẩm</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/order">
+              <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-success"><i class="fas fa-shopping-cart"></i></span>
+  
+                
+                <div class="info-box-content">
+                  <span class="info-box-text">Đơn hàng</span>
+                  <span class="info-box-number">Quản lí đơn hàng</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+
+            
+          </div>
+          <!-- /.row -->
+  
+          <!-- =========================================================== -->
+          <div class="row">
+            
+           
+        
+          </div>
+          <h5 class="mb-2">Thông báo - Email</h5>
+
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/notification">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="far fa-bell"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Thông báo</span>
+                  <span class="info-box-number">Gửi thông báo</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/mail">
+              <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
+  
+                
+                <div class="info-box-content">
+                  <span class="info-box-text">Mail</span>
+                  <span class="info-box-number">Gửi email</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+        
+          </div>
+          <!-- /.row -->
+
+          <h5 class="mb-2">Chiến dịch giảm giá sản phẩm</h5>
+          <div class="row">
+            
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/discount-campaign">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="fas fa-tags"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Discount</span>
+                  <span class="info-box-number">Giảm giá sản phẩm</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/thong-ke-doanh-thu">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="fas fa-tags"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Doanh thu</span>
+                  <span class="info-box-number">Thống kê doanh thu</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+          </div>
+          <h5 class="mb-2">Nhập hàng</h5>
+          <div class="row">
+            
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/import-goods">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="fas fa-tags"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Nhập hàng</span>
+                  <span class="info-box-number">Nhập hàng</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+              <a href="/admin/goods-received">
+              <div class="info-box shadow-sm">               
+                <span class="info-box-icon bg-success"><i class="fas fa-tags"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Đơn nhập</span>
+                  <span class="info-box-number">Đơn nhập</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+            </a>
+              <!-- /.info-box -->
+            </div>
+          </div>
+        </div>  
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<th:block id="custom-script">
+<!-- AdminLTE App -->
+<script src="admin/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="admin/js/demo.js"></script>
+</th:block>
+</body>
+
+</html>

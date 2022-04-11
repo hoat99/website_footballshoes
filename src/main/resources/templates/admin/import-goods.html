@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:utext="${title}"></title>
+
+    <th:block id="custom-style">
+        <link href="/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <style>
+            .modal-second {
+                z-index: 1052;
+            }
+
+            .modal-backdrop {
+                position: inherit;
+                z-index: 1051;
+
+            }
+        </style>
+    </th:block>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="mainContent">
+                    <div class="container card shadow" style="margin-bottom: 3em;">
+                    <div class="row" style="display:block">
+                        <h3 style="text-align: center; margin: 1em 0; font-weight: bold;">Nhập hàng</h3>
+                        <table class="table table-striped" id="import-goods">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Tên</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Màu sắc</th>
+                                    <th scope="col">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                        <div class="form-group" style="display: block;">
+                            <label for="idSupplier">Nhà cung cấp: </label>
+                            <select class="form-select" aria-label="Default select example"
+                                name="idSupplier" id="idSupplier">
+                                <option></option>
+                                <option th:each="suppliers : ${suppliers}"
+                                    th:value="${suppliers.id}" th:utext="${suppliers.name}">One
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button style="height: 3em; margin-bottom: 2em;" class="btn btn-primary" onclick="createImportGoods()">Tạo đơn nhập</button>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý sản phẩm</h6>
+                            <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal"
+                                data-target="#modalCreate">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                <span class="text">Thêm mới</span>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Tên</th>
+                                            <th>Số lượng</th>
+                                            <th>Ảnh</th>
+                                            <th>Size</th>
+                                            <th>Màu</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Tên</th>
+                                            <th>Số lượng</th>
+                                            <th>Ảnh</th>
+                                            <th>Size</th>
+                                            <th>Màu</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <th:block id="custom-script">
+        <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var table = $('#dataTable').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Vietnamese.json"
+                    }, "ajax": {
+                        url: "/admin/product/get-all",
+                        data: "data"
+
+                    },
+                    columns: [
+                        { data: 0 },
+                        { data: 1 },
+                        { data: 3 },
+                        { data: 4 },
+                        { data: 5 },
+                        { data: 7 }
+                    ],
+                    columnDefs:
+                        [
+                            {
+                                "targets": 3,
+                                "data": 3,
+                                "render": function (data, type, row, meta) {
+                                    return '<img src="' + data + '" alt="' + data + '"height="80px" width="80px"/>';
+                                }
+
+                            },
+                            {
+                                "targets": 6,
+                                "data": null,
+                                "defaultContent": `<button type="button" id = "btnAdd" class="btn btn-primary"><i class="far fa-edit"></i>Thêm</button>&nbsp;
+                                          `
+                            }
+                        ],
+                });
+
+
+
+                $('#dataTable').on('click', '#btnAdd', function () {
+                    var data = table.row($(this).parents('tr')).data();
+                    console.log(data);
+                    var tableImport = document.getElementById('import-goods');
+                    var row = tableImport.insertRow(1)
+                    row.setAttribute("id", data[0]);
+                    row.insertCell(0).innerHTML = '<p class="id">' + data[0] + '</p>';
+                    row.insertCell(1).innerHTML = data[1];
+                    row.insertCell(2).innerHTML = '<img src="' + data[4] + '" alt="' + data[4] + '"height="80px" width="80px"/>'
+                    row.insertCell(3).innerHTML = "<input type='number' class=\"quantity\"> </input>"
+                    row.insertCell(4).innerHTML = data[5];
+                    row.insertCell(5).innerHTML = data[7];
+                    row.insertCell(6).innerHTML = "<button class=\"btn btn-danger\" onclick='deleteRow(" + data[0] + ") '> X </button>"
+                });
+            });
+
+            function deleteRow(row) {
+                document.getElementById(row).remove();
+            }
+
+            function createImportGoods() {
+                const id = document.getElementsByClassName('id');
+                const arr = [...id].map(input => input.textContent);
+                const quantity = document.getElementsByClassName('quantity');
+                const arr2 = [...quantity].map(input => input.value);
+                console.log(arr)
+                console.log(arr2)
+
+                let data = {
+                    idProduct: arr,
+                    quantity: arr2,
+                    idSupplier: $('#idSupplier').val()
+                }
+
+
+
+                    $.ajax({
+                    method: 'post',
+                    url: '/admin/import-goods/create',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(data),
+                    success: res => {
+                        alert("Update thành công!");                   
+                    }
+                });
+                
+                
+            }
+        </script>
+    </th:block>
+</body>
+
+</html>

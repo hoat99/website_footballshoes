@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+              class="text-black">Giỏ hàng</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="site-section">
+      <div class="container">
+
+        <div class="row mb-5">
+          <!-- <form id="abc" class="col-md-12" action="/update-cart" method="post"> -->
+          <div class="site-blocks-table" style="width: 100%;">
+            <h5 style="color: red; font-weight: bold; " th:utext="${outOfQuantity}"></h5>
+            <table class="table table-bordered" id="myTable">
+              <thead>
+                <tr>
+                  <th class="product-thumbnail">Ảnh</th>
+                  <th>Product</th>
+                  <th class="product-size">Size</th>
+                  <th class="product-price">Giá (VND)</th>
+                  <th class="product-quantity">Số lượng</th>
+                  <th class="product-total">Tổng (VND)</th>
+
+                  <th class="product-remove">Xóa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:if="${notFoundProduct}">
+                  <td colspan="7" th:utext="${notFoundProduct}"></td>
+                </tr>
+                <th:block th:each="cart : ${carts}">
+                  <tr>
+                    <input th:value="${cart.idCart}" class="idCart" name="idCart" hidden>
+                    <input th:value="${cart.product.quantity}" class="quantityProd" name="quantityProd" hidden>
+                    <td class="product-thumbnail">
+                      <img th:src="${cart.product.image.avatar}" alt="Image" class="img-fluid">
+                    </td>
+                    <td>
+                      <h6 class="text-black" th:utext="${cart.product.name}">
+                        </h5>
+                    </td>
+                    <td th:utext="${cart.product.size}">$49.00</td>
+                    <td class="item-price" th:utext="${cart.cost}"></td>
+                    <td>
+                      <input name="quantity" type="text" class="form-control text-center quantity"
+                        th:value="${cart.quantity}" placeholder="" aria-label="Example text with button addon"
+                        aria-describedby="button-addon1">
+                    </td>
+                    <td class="item-price" th:utext="${cart.quantity}*${cart.cost}"></td>
+                    <td><button th:value="${cart.idCart}" type="button"
+                        class="btn btn-primary height-auto btn-sm btnDelete">X</button></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn btn-primary btn-sm btn-block" type="button" id="btnUpdateCart">Cập nhật giỏ hàng</button>
+          <button class="btn btn-outline-primary btn-sm btn-block" id="backShop">Tiếp tục mua hàng</button>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-5">
+              <div class="col-md-6 mb-3 mb-md-0">
+
+
+              </div>
+              <div class="col-md-6">
+
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-md-12">
+                <label class="text-black h4" for="coupon">Coupon</label>
+                <p>Enter your coupon code if you have one.</p>
+              </div>
+              <div class="col-md-8 mb-3 mb-md-0">
+                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary btn-sm px-4">Apply Coupon</button>
+              </div>
+            </div> -->
+          </div>
+          <div class="col-md-6 pl-5">
+            <div class="row justify-content-end">
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-12 text-right border-bottom mb-5">
+                    <h3 class="text-black h4 text-uppercase">Tổng giá</h3>
+                  </div>
+                </div>
+                <!-- <div class="row mb-3">
+                  <div class="col-md-6">
+                    <span class="text-black">Subtotal</span>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black" th:utext="${subtotal}"></strong>
+                  </div>
+                </div> -->
+                <div class="row mb-5">
+                  <div class="col-md-6">
+                    <span class="text-black">Tổng</span>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <strong class="text-black" th:if="${subtotal}" th:utext="${subtotal}">$230.00</strong>
+                    <strong class="text-black" th:unless="${subtotal}">0 đ</strong>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-primary btn-lg btn-block" id="checkOut">Mua ngay</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+
+      function updateCart() {
+        const idCart = document.getElementsByClassName('idCart');
+        const arr = [...idCart].map(input => input.value);
+
+        const quantity = document.getElementsByClassName('quantity');
+        const arr2 = [...quantity].map(input => input.value);
+
+        let data = {
+          idCart: arr,
+          quantity: arr2
+        }
+
+        $.ajax({
+          method: 'post',
+          url: '/update-cart',
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: res => {
+            alert("Update thành công!");
+            // location.reload();
+            window.location.href = "/cart";
+          }
+        });
+      }
+
+      function deleteItem() {
+
+      }
+
+      $(".btnDelete").on('click', function () {
+        let data = {
+          idProduct: this.value
+        }
+        if (confirm('Bạn có muốn xóa sản phẩm này không?')) {
+          $.ajax({
+            method: 'delete',
+            url: '/api/delete-item',
+            data: data,
+            dataType: 'application/json',
+            success: function () {
+              alert("Xóa thành công!");
+
+            }
+          });
+          
+        }
+        location.reload();
+      });
+
+
+
+      $('#btnUpdateCart').click((event) => {
+        event.preventDefault();
+        updateCart();
+      });
+
+      $('#backShop').click((event) => {
+        event.preventDefault();
+        location.href = "/shop";
+      });
+
+      $('#checkOut').click((event) => {
+        event.preventDefault();
+        location.href = "/checkout";
+      });
+
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent)));
+      }
+        //   console.log(b);
+    </script>
+  </th:block>
+</body>
+
+</html>

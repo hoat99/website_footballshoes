@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+    <th:block id="custom-style">
+        <style>
+            blockquote{
+                border-left: #eee 3px solid;
+            }
+            blockquote p {
+                margin-left: 1em;
+            }
+        </style>
+    </th:block>
+</head>
+
+<body>
+
+
+    <div id="mainContent">
+        <div class="bg-light py-3">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black">Quy định đổi trả</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="container" style="margin-top: 3em; box-shadow: 0.2em 0.6em 1em 0.3em grey; ">
+            <div class="row" style="margin: 1em;">
+                <div class="col-md-12" id="layout-page">
+                    <span class="header-page clearfix">
+                        <h2 style="font-weight: bold; margin-top: 1em;">Quy định đổi trả</h2>
+                    </span>
+    
+                    <div class="content-page">
+                        <hr>
+                        <h2 ><span style="font-size:24px;"><span style="color:#d9b91c;"><strong>A. QUY ĐỊNH ĐỔI HÀNG
+                                        :</strong> </span></span></h2>
+                        <p><span style="font-size: 12pt;">Khách hàng có thể&nbsp;đổi hàng ( đổi size hoặc đổi mẫu )
+                                <strong>trong vòng 7 NGÀY</strong> sau khi nhận được hàng với điều
+                                kiện<span>&nbsp;:&nbsp;</span></span></p>
+                        <blockquote>
+                            <p class="_5clb"><span style="font-size: 12pt; color: #ff0000;"><strong>- GIÀY CHƯA SỬ DỤNG, mới
+                                        100%, chưa mang chạy thử, đá thử</strong></span></p>
+                            <p class="_5clb"><span style="font-size: 12pt; color: #ff0000;"><strong>- GIÀY HOÀN TOÀN SẠCH
+                                        SẼ, không có bất kỳ sự hư hao ( rách , xước giày ,trầy lót ,dây ,đế
+                                        giày...)</strong>&nbsp;</span></p>
+                            <p><span style="font-size: 12pt; color: #ff0000;"><strong>- ĐẦY ĐỦ HỘP THEO GIÀY, CÒN NGUYÊN
+                                        TEM, TAG, HOÁ ĐƠN MUA HÀNG</strong></span></p>
+                        </blockquote>
+                        <p class="_5clb"><span style="font-size: 12pt;">Các trường hợp đổi hàng quá 7 ngày vui lòng liên hệ
+                                <em><strong><span style="color:#ff0000;">Hotline : 0789.970.907&nbsp;</span></strong></em>để
+                                được xử lý.</span></p>
+                        <p class="_5clb"><span style="font-size: 12pt; color: #000000;">Khách hàng Có thể đổi sang 1 hoặc
+                                nhiều sản phẩm có giá trị tương đương, Cao hơn ( khách hàng sẽ bù thêm tiền ), hoặc Thấp hơn
+                                (&nbsp;<span style="color: #ff0000;"><strong>sẽ hoàn lại khoản chênh lệch không vượt quá
+                                        500.000 VNĐ</strong></span>&nbsp;) sau quá trình đổi hàng.&nbsp;</span></p>
+                        <p class="_5clb"><span style="font-size: 12pt;">Lưu ý :&nbsp;Khách hàng chỉ được<span>&nbsp;hỗ
+                                    trợ&nbsp;</span><strong>đổi hàng 1 lần.</strong>&nbsp;</span></p>
+                        <p class="_5clb"><br><span style="font-size: 12pt;"><span style="color: #ff0000;"><strong>Lưu ý đối
+                                        với sản phẩm ORDER KHÔNG CÓ SẴN : </strong></span><strong><span
+                                        style="color:#d9b91c;"></span></strong><span
+                                    style="color: #ff0000;"><strong>&nbsp;</strong><strong><span
+                                            style="color: #000000;">KHÔNG</span></strong></span></span><span
+                                style="font-size: 12pt;"><strong>&nbsp;</strong>hỗ trợ đổi hàng với lý do cá nhân (ví dụ
+                                như: order lộn size, bạn không thích sản phẩm đó hoặc lý do nào đó như mang không hợp chân,
+                                màu sắc không ưng ý... )&nbsp;</span></p>
+                        <h2 class="_5clb"><span style="font-size:24px;"><span style="color:#d9b91c;"><b>B. PHÍ VẬN CHUYỂN
+                                        ĐỔI HÀNG :&nbsp;</b></span></span></h2>
+                        <p class="_5clb"><span style="font-size: 12pt;">- Chi phí vận chuyển 2 chiều phát sinh do quá trình
+                                đổi hàng sẽ do khách hàng thanh toán cho bên vận chuyển.</span></p>
+                        <p class="_5clb"><span style="font-size: 12pt;">- Những trường hợp Đổi hàng do vận chuyển nhầm Size,
+                                nhầm mẫu : <strong><span style="color:#d9b91c;"></span></strong> sẽ chịu chi phí
+                                vận chuyển 2 chiều và cam kết mang đến cho khách hàng một sản phẩm ưng ý nhất.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block id="custom-script">
+
+    </th:block>
+</body>
+
+</html>

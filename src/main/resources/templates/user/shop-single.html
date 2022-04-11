@@ -1,0 +1,929 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+  ~{:: #custom-style},
+  ~{:: #mainContent},
+  ~{:: #custom-script}
+ )}">
+
+<head>
+  <th:block id="custom-style">
+    <title th:utext="${title}"></title>
+    <link rel='stylesheet' href="/css/slick.css">
+    <link rel='stylesheet' href="/css/jquery.fancybox.min.css">
+    <link href="imgs/fav-icon.png" rel="shortcut icon">
+    <style>
+      .radio-toolbar input[type="radio"] {
+        display: none;
+      }
+
+      .radio-toolbar label {
+        display: inline-block;
+        background-color: #ddd;
+        padding: 4px 11px;
+        font-family: Arial;
+        font-size: 16px;
+        cursor: pointer;
+        margin-left: 5px;
+        background-color: white;
+        border: rgb(0, 0, 0) 1px solid;
+        border-radius: 5%;
+        color: rgb(0, 0, 0);
+      }
+
+      .radio-toolbar input[type="radio"]:checked+label {
+        background-color: rgb(255, 251, 251);
+        border: rgb(0, 185, 0) 1px solid;
+        border-radius: 5%;
+        color: rgb(0, 185, 0);
+      }
+
+      .multiCollapse input[type="radio"] {
+        display: none;
+      }
+
+      .multiCollapse label {
+        display: inline-block;
+        background-color: #ddd;
+        padding: 4px 11px;
+        font-family: Arial;
+        font-size: 16px;
+        cursor: pointer;
+        margin-left: 5px;
+        background-color: white;
+        border: rgb(0, 0, 0) 0.8px solid;
+        color: rgb(0, 0, 0);
+      }
+
+      .multiCollapse input[type="radio"]:checked+label {
+        background-color: rgb(255, 251, 251);
+        border: red 1px solid;
+        color: red;
+      }
+
+      .info .container {
+        display: none;
+      }
+
+      .slick-slider .slick-prev,
+      .slick-slider .slick-next {
+        z-index: 100;
+        font-size: 2.5em;
+        height: 40px;
+        width: 40px;
+        margin-top: -20px;
+        color: #B7B7B7;
+        position: absolute;
+        top: 50%;
+        text-align: center;
+        color: #000;
+        opacity: .3;
+        transition: opacity .25s;
+        cursor: pointer;
+        background: #FFFFFF;
+      }
+
+      .slick-slider .slick-prev:hover,
+      .slick-slider .slick-next:hover {
+        opacity: .65;
+      }
+
+      .slick-slider .slick-prev {
+        left: 0;
+      }
+
+      .slick-slider .slick-next {
+        right: 0;
+      }
+
+      #detail .product-images {
+        width: 100%;
+        margin: 0 auto;
+        /* border: 1px solid #eee; */
+      }
+
+      #detail .product-images li,
+      #detail .product-images figure,
+      #detail .product-images a,
+      #detail .product-images img {
+        display: block;
+        outline: none;
+        border: none;
+      }
+
+      #detail .product-images .main-img-slider figure {
+        margin: 0 auto;
+        padding: 0 2em;
+      }
+
+      #detail .product-images .main-img-slider figure a {
+        cursor: pointer;
+        cursor: -webkit-zoom-in;
+        cursor: -moz-zoom-in;
+        cursor: zoom-in;
+      }
+
+      #detail .product-images .main-img-slider figure a img {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      #detail .product-images .thumb-nav {
+        margin: 0 auto;
+        padding: 20px 10px;
+        max-width: 600px;
+      }
+
+      #detail .product-images .thumb-nav.slick-slider .slick-prev,
+      #detail .product-images .thumb-nav.slick-slider .slick-next {
+        font-size: 1.2em;
+        height: 20px;
+        width: 26px;
+        margin-top: -10px;
+      }
+
+      #detail .product-images .thumb-nav.slick-slider .slick-prev {
+        margin-left: -30px;
+      }
+
+      #detail .product-images .thumb-nav.slick-slider .slick-next {
+        margin-right: -30px;
+      }
+
+      #detail .product-images .thumb-nav li {
+        display: block;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+
+      #detail .product-images .thumb-nav li img {
+        display: block;
+        width: 100%;
+        max-width: 75px;
+        margin: 0 auto;
+        border: 2px solid transparent;
+        -webkit-transition: border-color .25s;
+        -ms-transition: border-color .25s;
+        -moz-transition: border-color .25s;
+        transition: border-color .25s;
+      }
+
+      #detail .product-images .thumb-nav li:hover,
+      #detail .product-images .thumb-nav li:focus {
+        border-color: #999;
+      }
+
+      #detail .product-images .thumb-nav li.slick-current img {
+        border-color: #d12f81;
+      }
+
+      .main_img {
+        width: 500px;
+        margin: 0 auto
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+  <div id="mainContent">
+
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Home</a> <span class="mx-2 mb-0">/</span> <a
+              th:href="@{/shop}">Shop</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"
+              th:utext="${product.name}">Gray Shoe</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">           
+            <section id="detail" translate="no" style="display: block; text-align: -webkit-center;">
+                <div style="display: table;">
+                  <div class="main_img">
+
+                    <div class="product-images demo-gallery">
+                      <div class="main-img-slider" >
+                        <a data-fancybox="gallery" th:href="${product.image.avatar}" style="width: 75%;"><img
+                            th:src="${product.image.avatar}" class="img-fluid" style="width: 75%;"></a>
+                        <a data-fancybox="gallery" th:href="${product.image.image1}" style="width: 75%;"><img
+                            th:src="${product.image.image1}" class="img-fluid" style="width: 75%;"></a>
+                        <a data-fancybox="gallery" th:href="${product.image.image2}" style="width: 75%;"><img
+                            th:src="${product.image.image2}" class="img-fluid" style="width: 75%;"></a>
+                        <a data-fancybox="gallery" th:href="${product.image.image3}" style="width: 75%;"><img
+                            th:src="${product.image.image3}" class="img-fluid" style="width: 75%;"></a>
+                        <a data-fancybox="gallery" th:href="${product.image.image4}" style="width: 75%;"><img
+                            th:src="${product.image.image4}" class="img-fluid" style="width: 75%;"></a>
+                      </div>
+
+                      <ul class="thumb-nav">
+                        <li><img style="height: 75px;" th:src="${product.image.avatar}"></li>
+                        <li><img style="height: 75px;" th:src="${product.image.image1}"></li>
+                        <li><img style="height: 75px;" th:src="${product.image.image2}"></li>
+                        <li><img style="height: 75px;" th:src="${product.image.image3}"></li>
+                        <li><img style="height: 75px;" th:src="${product.image.image4}"></li>
+                      </ul>
+
+                    </div>
+
+                  </div>
+                </div>
+            </section>
+          </div>
+          <div class="col-md-5">
+            <h5  id="productname"  th:utext="${product.name}"></h5>
+            <p>Nhà cung cấp: <span style="text-transform: uppercase;" th:utext="${product.strademark.name}"></span></p>
+            
+            <div style="display: flex;margin-top: -0.6em;">
+              <p>Đánh giá: </p>
+              <div style="color: #ffb329;margin-top: 0.4em;padding-left: 0.5em;padding-right: 0.5em;" class="star-rating" th:if="${product.rate}" th:text="${product.rate}">
+              </div>
+              <div th:if="${product.rate}"> (<span th:utext="${product.numberOfRating}"></span> lượt đánh giá)</div>
+              <div style="padding-left: .5em;" th:unless="${product.rate}" > Chưa có đánh giá</div>
+            </div>
+            <div th:if="${product.isDiscount}">Giá:
+              <del style="color: #a4a4a4; font-weight: bolder;" class="item-price" th:utext="${product.cost}">$28.00</del>
+              <strong style="font-size: larger;color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.costDiscount}">$28.00</strong>
+            </div>
+            <div th:unless="${product.isDiscount}">Giá:
+              <strong style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.cost}">$28.00</strong>
+            </div>
+            <div class="mb-1 d-block radio-toolbar">
+              <p class="h6" style="padding: 4px 11px 0 0; margin-top: 1em;"><b>MÀU SẮC </b></p>
+              <input checked size="30px" type="radio" th:value="${product.color}" th:id="${product.color}" name="color">
+              <label style="margin-top: 0.5em;" th:for="${product.color}" th:utext="${product.color}"></label>
+            </div>
+            <form id="checkId">
+              <div class="mb-1 radio-toolbar">
+                <p class="h6" style="padding: 4px 11px 0 0;"><b>SIZE </b></p>
+                <div class="d-flex sizeProduct">
+                  <th:block th:each="productGroup : ${productGroups}">
+                    <div th:if="${productGroup.quantity}">
+
+                      <input checked size="1px" type="radio" th:value="${productGroup.idProduct}"
+                        th:id="${productGroup.idProduct}" name="id" class="idProduct">
+                      <label style="size: 30px;margin-top: 0.5em; " th:for="${productGroup.idProduct}"
+                        th:utext="${productGroup.size}"></label>
+                    </div>
+                  </th:block>
+
+                </div>
+              </div>
+            </form>
+            <div style="padding: 5px 0; margin-bottom: 0.5em;">
+              <div th:if="${statusQuantity}">
+                <span
+                  style="height: 15px; width: 15px; border-radius: 50%;display: inline-block; background-color: green;"></span>
+                <b style="color: green;">Còn hàng</b>
+              </div>
+              <div th:if="!${statusQuantity}">
+                <span
+                  style="height: 15px; width: 15px; border-radius: 50%;display: inline-block; background-color: red;"></span>
+                <b style="color: red;">HẾT HÀNG</b>
+              </div>
+            </div>
+            <button class="btn btn-sm height-auto px-4 py-3 btn-primary" onclick="addToCart()">Thêm vào
+              giỏ</button>
+            <input th:value="${username}" id="checkUser" hidden>
+            <div class="product-short-description" style="margin-top: 2em;">
+              <h4 style="color: red;font-family:sans-serif;">CAM KẾT SẢN PHẨM CHÍNH HÃNG 100%. ĐƯỢC BỒI
+                HOÀN GẤP 10 LẦN NẾU KHÔNG PHẢI CHÍNH HÃNG</h4>
+            <span style="color: #ff0000;">---------------------------------------------------------------------</span>
+            <br><span style="color: #1d1515;"><i class="icon-instagram"></i>&nbsp; <strong>Ảnh thật 100%</strong> (Có thể xem hàng khi giao đến)</span>
+            <br><span style="color: #1d1515;"><i class="icon-gift" aria-hidden="true"></i>&nbsp; <strong>Tặng kèm Tất Dệt Kim loại đẹp</strong> (Quà tặng khuyến mãi)</span>
+            <br><span style="color: #1d1515;"><i class="icon-shopping-cart" aria-hidden="true"></i>&nbsp; <strong>Giao hàng toàn quốc</strong> (Phí ship chỉ từ <span style="color: #ff0000;"><strong>16.500</strong>đ</span>)</span>
+            <br><span style="color: #1d1515;"><i class="icon-certificate"></i>&nbsp; <strong>Bảo hành 3 tháng</strong> (Yên tâm về chất lượng)</span>
+            <br><span style="color: #1d1515;"><i class="icon-expand"></i>&nbsp; <strong>Đổi size dễ dàng</strong> (Đổi đến khi vừa ý)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-top: 2em;">
+      <div class="row ">
+        <div class="d-flex multiCollapse">
+          <div>
+            <input onclick="change()" size="1px" type="radio" name="multiCollapse1" id="multiCollapse1"
+              value="Mo-ta-san-pham">
+            <label style="size: 30px;" for="multiCollapse1">Mô tả sản phẩm</label>
+          </div>
+          <div>
+            <input onclick="change()" size="1px" type="radio" name="multiCollapse1" id="multiCollapse2"
+              value="Thong-so-ki-thuat">
+            <label style="size: 30px;" for="multiCollapse2">Thông số kĩ
+              thuật</label>
+          </div>
+          <div><input onclick="change()" size="1px" type="radio" name="multiCollapse1" id="multiCollapse3"
+              value="Huong-dan-mua-hang">
+            <label style="size: 30px;" for="multiCollapse3">Hướng dẫn mua hàng</label>
+          </div>
+          <div><input onclick="change()" size="1px" type="radio" name="multiCollapse1" id="multiCollapse4"
+              value="Chinh-sach-bao-hanh">
+            <label style="size: 30px;" for="multiCollapse4">Chính sách bảo hành</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="container" id="Mo-ta-san-pham" style="margin-top: 1em;">
+        <hr>
+
+        <div>
+          <div th:if="${articleProduct}" th:utext="${articleProduct.content}">
+          </div>
+        </div>
+
+      </div>
+      <div class="container" id="Thong-so-ki-thuat" style="margin-top: 1em;">
+        <hr>
+
+        <div>
+          <div>
+            <p th:if="${product.album}"><b>Bộ sưu tập: </b><span th:utext="${product.album}"></span></p>
+            <p th:if="${product.yearOfProduction}"><b>Năm sản xuất: </b><span
+                th:utext="${product.yearOfProduction}"></span></p>
+            <p th:if="${product.material}"><b>Chất liệu: </b><span th:utext="${product.material}"></span></p>
+            <p th:if="${product.representativePlayer}"><b>Cầu thủ đại diện: </b><span
+                th:utext="${product.representativePlayer}"></span></p>
+            <p th:if="${product.technology}"><b>Công nghệ khuôn đế: </b><span th:utext="${product.technology}"></span>
+            </p>
+            <p th:if="${product.strademark}"><b>Thương hiệu: </b><span th:utext="${product.strademark.name}"></span>
+            </p>
+            <p th:if="${product.courtyard}"><b>Thương hiệu: </b><span th:utext="${product.courtyard.type}"></span></p>
+
+          </div>
+        </div>
+      </div>
+      <div class="container" id="Huong-dan-mua-hang" style="margin-top: 1em;">
+        <hr>
+
+        <div>
+          <div class="product-description-wrapper">
+            <p>
+              <span style="font-size: 12pt; color: #000000;">
+                <em>Rất cảm ơn quý khách hàng đã tin tưởng và lựa chọn mua sắm tại&nbsp;</em>
+              </span>
+              <span style="color:#d9b91c;">
+                <span style="font-size: 12pt;">
+                  <em>Authentic.COM</em>
+                </span>
+              </span><span style="font-size: 12pt; color: #000000;"><em>.&nbsp;Chúng tôi có những phương thức thanh
+                  toán nhanh chóng và tiện lợi để phục vụ quý khách hàng một cách tốt nhất :&nbsp;</em></span>
+            </p>
+            <h2
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="color: #ff0000; font-size: 15pt;"><b><u>1. ĐỐI VỚI KHÁCH HÀNG TẠI HN</u>:&nbsp;</b></span>
+            </h2>
+            <div>&nbsp;</div>
+            <p
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size:22px;"><strong><span style="color:#d9b91c;"><em>Cách 1 : Mua hàng trực tiếp tại
+                      cửa hàng</em></span></strong></span>
+            </p>
+            <div>&nbsp;</div>
+            <div><em><span style="font-size: 12pt;">Sau khi chọn được sản phẩm và kiểm tra chi nhánh còn hàng, khách
+                  hàng có thể mua hàng&nbsp;trực tiếp tại các chi nhánh&nbsp;của AUTHENTIC:&nbsp;</span></em></div>
+            <blockquote>
+              <p><span style="font-size: 12pt;"><b>AUTHENTIC BÌNH THẠNH:</b> 43A&nbsp;Điện Biên Phủ, Phường 15, Q.
+                  Bình Thạnh (gần Vòng xoay Mc.Donald) <span style="color:#d9b91c;"><em>(Có chỗ đậu xe
+                      hơi)&nbsp;</em></span></span></p>
+              <!-- <p><span style="font-size: 12pt;"><b>AUTHENTIC QUẬN 5:</b> 637C Trần Hưng Đạo,&nbsp;Phường 1, Quận 5
+              (gần ngã 4 Trần Hưng Đạo - Nguyễn Văn Cừ)&nbsp;<span style="color:#d9b91c;"><em>(Có chỗ đậu xe
+                  hơi)&nbsp;</em></span></span></p>
+          <p><span style="font-size: 12pt;"><b>AUTHENTIC THỦ ĐỨC:</b>&nbsp;148/7 Hoàng Diệu 2, P. Linh Chiểu,
+              TP. Thủ Đức (gần Đại học Ngân Hàng Thủ Đức)&nbsp;<span style="color:#d9b91c;"><em>(Có chỗ đậu xe
+                  hơi)&nbsp;</em></span></span></p>
+          <p><span style="font-size: 12pt;"><b>AUTHENTIC TÂN BÌNH:</b>&nbsp;307 Cộng Hòa, P. 13, Q. Tân
+              Bình&nbsp;(gần cầu vượt Hoàng Hoa Thám)&nbsp;<span style="color:#d9b91c;"><em>(Có chỗ đậu xe
+                  hơi)&nbsp;</em></span></span></p> -->
+            </blockquote>
+            <p><span style="font-size:22px;"><strong><span style="color:#d9b91c;"><em>Cách 2 : Đặt hàng giao ngay qua
+                      Hotline, Facebook, Zalo&nbsp;</em></span></strong></span></p>
+            <p><span style="font-size:16px;"><em>Nếu không thể đến trực tiếp 1 trong 4 chi nhánh&nbsp;của AUTHENTIC
+                  , bạn có thể đặt hàng qua&nbsp;Hotline</em>&nbsp;:<span
+                  style="color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-style: italic;">&nbsp;</span><span
+                  style="color:#ff0000;"><span
+                    style="font-family: helvetica, arial, sans-serif; font-style: italic;">0377.254.742</span></span><span
+                  style="font-family: helvetica, arial, sans-serif; font-style: italic; color: rgb(0, 0, 0);">&nbsp;hoặc
+                  các MXH :&nbsp;</span></span></p>
+            <blockquote>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size: 12pt;"><strong>FB:&nbsp;</strong><a
+                    href="https://www.facebook.com/hoat.nongvan.75/">https://www.facebook.com/hoat.nongvan.75/</a></span>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size: 12pt;"><strong>ZaloOA:&nbsp;</strong><a href="#">https://zalo.me</a></span>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size: 12pt;"><strong>Instagram:&nbsp;</strong><a
+                    href="#">https://www.instagram.com/AUTHENTIC47/</a></span>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size: 12pt;"><strong>Zalo :&nbsp;</strong><span style="color:#ff0000;">0377.254.742
+                  </span>(CSKH AUTHENTIC)</span>
+              </p>
+            </blockquote>
+            <p
+              style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size: 12pt;">Chúng tôi sẽ hỗ trợ vận chuyển ngay lập tức bằng&nbsp;<span
+                  style="color: #000000;"><strong>GrabBike</strong></span><span>&nbsp;hoặc các ứng dụng giao hàng
+                  <strong>Ahamove</strong>&nbsp;</span>trong thời gian 1--&gt; 2 tiếng theo khách hàng yêu
+                cầu.<span>&nbsp;</span><em>Cách này sẽ có phí giao hàng GrabBike từ 30 --&gt; 100.000vnd&nbsp;tuỳ địa
+                  chỉ xa gần.&nbsp;</em></span>
+            </p>
+            <p
+              style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              &nbsp;</p>
+            <h2
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size: 15pt;"><strong><span style="color: #ff0000;"><u>2.&nbsp; ĐỐI VỚI KHÁCH HÀNG Ở
+                      TỈNH, TP KHÁC</u>:&nbsp;</span></strong></span>
+            </h2>
+            <h2
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              &nbsp;</h2>
+            <p
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size:22px;"><strong><span style="color:#d9b91c;"><em>Cách 1 : Thanh toán chuyển
+                      khoản</em></span></strong></span>
+            </p>
+            <p
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              &nbsp;</p>
+            <p
+              style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size:16px;">Khách hàng chọn hình thức này sẽ nhận hàng nhanh nhất có thể.&nbsp;Hàng
+                hoá được chuyển đến tận tay khách hàng trong khoảng 1-3 ngày (tuỳ địa chỉ) thông qua hình thức Chuyển
+                phát nhanh của công ty vận chuyển Viettel Post, hoặc bằng nhà xe, chành xe nếu khách hàng yêu
+                cầu.&nbsp;&nbsp;</span>
+            </p>
+            <p
+              style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              &nbsp;</p>
+            <p
+              style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              <span style="font-size: 15pt;"><strong>Thông tin tài khoản AUTHENTIC :&nbsp;</strong></span>
+            </p>
+            <p
+              style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+              &nbsp;</p>
+            <blockquote>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="color:#d9b91c;"><span style="font-size: 15pt;"><em>1.&nbsp;</em></span></span><span
+                  style="font-size:20px;"><i>VietinBank<span style="color:#d9b91c;">&nbsp;</span></i><em><span
+                      style="color:#d9b91c;">–</span></em><i><span style="color:#d9b91c;">&nbsp;Công ty TNHH
+                      AUTHENTIC&nbsp;</span></i><em><span style="color:#d9b91c;">–</span></em><i><span
+                      style="color:#d9b91c;">&nbsp;</span><span style="color: #ff0000;"><strong>1106 1259
+                        6789</strong></span>&nbsp;</i><em>–</em><i> Chi nhánh 4</i></span>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                &nbsp;</p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="color:#d9b91c;"><span style="font-size: 15pt;"><em>2. </em></span></span><span
+                  style="font-size: 15pt;"><em>Agribank</em></span><span style="color:#d9b91c;"><span
+                    style="font-size: 15pt;"><em>&nbsp;– Nông Văn Hoạt –</em></span></span><span
+                  style="font-size: 15pt; color: #3366ff;"><em>&nbsp;<strong><span style="color: #ff0000;">060 047 785
+                        939</span>&nbsp;</strong></em></span><span style="font-size: 15pt;"><em>– Chi nhánh Hà
+                    Nội</em></span>
+              </p>
+              <!-- <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            &nbsp;</p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            <span style="color:#d9b91c;"><span style="font-size: 15pt;"><em>3. </em></span></span><span
+              style="font-size: 15pt;"><em>Vietcombank</em></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><em>&nbsp;– Vũ Hoàng Long&nbsp;–</em></span></span><span
+              style="color: #3366ff; font-size: 15pt;"><em>&nbsp;<strong><span style="color: #ff0000;">0381 000
+                    478 390</span>&nbsp;</strong></em></span><span style="font-size: 15pt;"><em>– Chi nhánh Thủ
+                Đức</em></span></p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            &nbsp;</p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            <span style="color:#d9b91c;"><em><span style="font-size: 15pt;">4.</span>&nbsp;</em></span><span
+              style="font-size: 15pt;"><em>BIDV</em></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><em>&nbsp;– Vũ Hoàng Long –</em></span></span><span
+              style="color: #3366ff;"><span style="font-size: 15pt;"><em>&nbsp;<span
+                    style="color: #ff0000;"><strong>3141 000 1937
+                      144</strong></span>&nbsp;</em></span></span><span style="font-size: 15pt;"><em>– Chi
+                nhánh&nbsp;Đông Sài Gòn</em></span></p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            &nbsp;</p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            <span style="color:#d9b91c;"><span style="font-size: 15pt;"><i>5.&nbsp;</i></span></span><span
+              style="font-size: 15pt;"><i>Agribank</i></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><i>&nbsp;- Trần Thị Thúy Kiều </i><em>–</em></span></span><span
+              style="color: #3366ff;"><span style="font-size: 15pt;"><i>&nbsp;<span
+                    style="color: #ff0000;"><strong>630 020 567 3333</strong>&nbsp;</span></i></span></span><span
+              style="font-size: 15pt;"><em>–</em><i> Chi nhánh Quận 9 </i></span></p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            &nbsp;</p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            <span style="color:#d9b91c;"><span style="font-size: 15pt;"><i>6.</i></span></span><span
+              style="font-size: 15pt;"><i>&nbsp;Acb</i></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><i>&nbsp;</i><em>–</em><i> Vũ Hoàng
+                  Long&nbsp;</i><em>–</em></span></span><span style="color: #3366ff;"><span
+                style="font-size: 15pt;"><span><i>&nbsp;<span style="color: #ff0000;"><strong>1380
+                        52119</strong>&nbsp;</span></i></span></span></span><span
+              style="font-size: 15pt;"><em>–</em><i> Chi nhánh Quận 9</i></span></p>
+          <p
+            style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            &nbsp;</p>
+          <p style="margin: 0px; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+            <i style="color: rgb(51, 102, 255); font-size: 15pt;"><span
+                style="color:#d9b91c;">7.</span><strong><span style="color:#d9b91c;"> </span></strong><span
+                style="color:#000000;">VÍ MOMO</span><strong><span
+                  style="color:#000000;">&nbsp;</span></strong></i><span style="color: rgb(217, 185, 28);"><span
+                style="font-size: 15pt;"><em>–&nbsp;</em></span></span><i
+              style="color: rgb(51, 102, 255); font-size: 15pt;"><span style="color:#d9b91c;">Vũ Hoàng Đại
+              </span></i><span style="color:#d9b91c;"><span style="font-size: 15pt;"><em>–</em></span></span><i
+              style="font-size: 15pt;">&nbsp;</i><span style="font-size: 15pt;"><i>SĐT:&nbsp;</i></span><i
+              style="font-size: 15pt;"><strong>
+                <font color="#ff0000">0902 540 504</font>
+              </strong></i><span style="color: rgb(255, 0, 0);"><i
+                style="color: #3366ff; font-size: 15pt;">&nbsp;</i></span></p>
+        </blockquote>
+        <hr>
+        <h3
+          style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px; text-align: center;">
+          <span style="color:#ff0000;"><span style="font-size: 15pt;"><strong><i>NỘI DUNG CHUYỂN KHOẢN : Tên khách
+                  hàng_SĐT đặt hàng&nbsp;</i></strong></span></span></h3>
+        <hr> -->
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                &nbsp;</p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="color:#d9b91c;"><span style="font-size:20px;"><i><u>Lưu ý</u> : Nội dung Chuyển khoản là
+                      căn cứ để <strong>AUTHENTIC</strong> lưu thông tin Bảo Hành sản phẩm cho khách hàng và hỗ trợ
+                      khách hàng trong những trường hợp cần đổi size hoặc đổi mẫu.&nbsp;</i></span></span>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                &nbsp;</p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size: 12pt;">Khi nhận được chuyển khoản , <span
+                    style="color:#d9b91c;"><strong>AUTHENTIC</strong></span> sẽ nhắn tin hoặc gọi điện thoại trực tiếp
+                  cho Khách hàng để xác nhận. Hàng đựơc ship đi trong ngày, khi chuyển hàng&nbsp;<a
+                    href="http://AUTHENTIC.com/"><span style="color:#d9b91c;">NEYMAR SPORT</span></a>&nbsp;sẽ gửi kèm
+                  bạn thông tin số vận đơn để cho khách hàng thuận tiện trong việc kiểm tra tình trạng đơn hàng và chủ
+                  động nhận hàng.</span>
+              </p>
+              <h2
+                style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                &nbsp;</h2>
+              <p
+                style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <span style="font-size:22px;"><strong><span style="color:#d9b91c;"><em>Cách 2&nbsp;: Thử giày - Thanh
+                        toán tại nhà (COD)</em></span></strong></span>
+              </p>
+              <p><span style="font-size:16px;">Hình thức Thử giày - Thanh toán tại nhà (COD):&nbsp;<strong>Khách hàng
+                    sẽ&nbsp;đặt cọc trước </strong><strong><span
+                      style="color:#ff0000;">100.000vnd</span>,</strong><strong> tiền cọc được trừ vào giá sản phẩm.
+                    Khách nhận hàng sẽ được KIỂM TRA SẢN PHẨM, THỬ GIÀY và sau đó thanh toán cho shipper.
+                  </strong>Trong
+                  trường hợp khách không nhận hàng, tiền cọc được tính là phí vận chuyển 2 chiều và sẽ không hoàn
+                  lại.&nbsp;</span></p>
+              <p><span style="font-size:16px;"><em>Vd : Giá sản phẩm là : <span
+                      style="color:#ff0000;">1.950.000vnd</span>, Khách hàng chọn hình thức COD sẽ đặt cọc trước
+                  </em><span style="color:#ff0000;"><em>100.000vnd</em></span><em><span style="color:#ff0000;">
+                    </span>bằng chuyển khoản hoặc thẻ cào điện thoại. Khi shipper giao hàng đến, Khách hàng nhận hàng
+                    sẽ
+                    thanh toán </em><span style="color:#ff0000;"><em>1.850.000vnd cho shipper&nbsp;giao
+                      hàng.&nbsp;</em></span></span></p>
+              <blockquote>
+                <p><span style="font-size:16px;">Trong trường hợp Khách hàng lần đầu mua sản phẩm tại AUTHENTIC,
+                    khách&nbsp;cần phải cung cấp số đo chân chính xác để nhân viên&nbsp;AUTHENTIC tư vấn và chọn size
+                    vừa vặn, giảm thiểu rủi ro đặt nhầm size.&nbsp;</span></p>
+              </blockquote>
+              <p
+                style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; line-height: 20px;">
+                <em style="font-size:12pt">
+                  <font color="#f1c40f"><strong>AUTHENTIC.COM</strong>&nbsp;</font><span style="color:#000000">với đội
+                    ngũ CSKH Online rất có kinh nghiệm về tư vấn SIZE GIÀY BÓNG ĐÁ CHÍNH HÃNG, sẽ hỗ trợ khách hàng
+                    một
+                    cách nhanh chóng và chính xác nhất thông qua Facebook, Zalo, Hotline 24/7.</span>
+                  <font color="#3366ff">&nbsp;</font>
+                </em><span style="font-size:12pt"><span style="color:#000000"><em>Trong trường hợp sau khi thanh toán,
+                      khách hàng mang không vừa, Giữ Giày trong hộp và liên hệ chúng tôi để được tư vấn Đổi Size hoặc
+                      Đổi sang 1 sản phẩm khác.</em></span></span>
+              </p>
+              <blockquote>
+                <p><span style="font-size:16px;">- Quý khách vui lòng<strong>&nbsp;<span style="color:#ff0000;">kiểm
+                        tra
+                        kỹ hàng hoá ngay khi nhận hàng</span></strong>&nbsp;từ người chuyển phát hàng hoá, nếu có vấn
+                    đề
+                    liên quan tới mẫu mã, chất lượng, số lượng hàng hoá không đúng như trong đơn đặt hàng, Quý khách
+                    vui
+                    lòng liên hệ <em>Hotline :</em><span style="color:#ff0000;"><em><strong>
+                          0377.254.742</strong></em></span> để phối hợp với đơn vị chuyển phát hàng hóa xử lý.</span>
+                </p>
+              </blockquote>
+              <p><em><span style="font-size:16px;"><strong>Các chi phí vận chuyển 2 chiều phát sinh trong quá trình
+                      đổi
+                      hàng (phí gửi ngược&nbsp;lại cửa hàng&nbsp;+ phí gửi hàng mới)</strong>&nbsp;sẽ do khách hàng
+                    thanh toán.</span></em></p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                <em><span style="font-size:16px;"><strong>Những trường hợp Đổi hàng do vận chuyển nhầm Size</strong>,
+                    <strong>nhầm mẫu</strong> : <strong>AUTHENTIC</strong> sẽ chịu chi phí vận chuyển 2 chiều và cam
+                    kết mang đến cho khách hàng một sản phẩm ưng ý nhất.</span></em>
+              </p>
+              <p
+                style="margin: 0px; color: #141823; font-family: helvetica, arial, sans-serif; font-size: 14px; line-height: 20px;">
+                &nbsp;</p>
+              <blockquote>
+                <h3
+                  style="margin: 0px; color: rgb(20, 24, 35); font-family: helvetica, arial, sans-serif; line-height: 20px;">
+                  <span style="font-size:16px;"><strong>Tra cước phí vận chuyển Viettel Post tại đây:</strong><span
+                      style="color:#3366ff;">&nbsp;</span><em><a
+                        href="https://viettelpost.com.vn/tra-cuoc-va-thoi-gian-van-chuyen/"><span
+                          style="color:#3366ff;">https://viettelpost.com.vn/tra-cuoc-va-thoi-gian-van-chuyen/</span></a></em></span>
+                </h3>
+                <h3><span style="font-size:16px;"><strong>Tra cứu lộ trình vận chuyển đơn hàng tại
+                      đây:</strong>&nbsp;<em><a href="https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/"><span
+                          style="color:#3366ff;">https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/</span></a></em></span>
+                </h3>
+              </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="container" id="Chinh-sach-bao-hanh" style="margin-top: 1em;">
+        <hr>
+
+        <div class="product-description-wrapper">
+          <p><span style="font-size: 12pt; color: #000000;"><em>Rất cảm ơn quý khách hàng đã tin tưởng và lựa chọn mua
+                sắm&nbsp;tại&nbsp;</em></span><span style="color:#d9b91c;"><span
+                style="font-size: 12pt;"><em>AUTHENTIC.COM</em></span></span><span
+              style="font-size: 12pt; color: #000000;"><em>.&nbsp;Sau đây là chính sách bảo hành đối với các sản phẩm
+                chính hãng do AUTHENTIC phân phối :&nbsp;&nbsp;</em></span></p>
+          <h2><span><span style="font-size: 15pt; color: #ff0000;"><strong><u>A. ĐỐI VỚI CÁC SẢN PHẨM GIÀY BÓNG ĐÁ
+                    CHÍNH HÃNG</u>&nbsp;</strong></span></span></h2>
+          <p><span style="font-size:16px;"><span class="fbUnderline">Bóng đá là môn thể thao đối kháng, những va chạm,
+                những trầy xước, hư hao là không thể tránh khỏi. Tất cả sản phẩm Giày Bóng Đá Chính Hãng mua tại hệ
+                thống AUTHENTIC.COM đều được hỗ trợ bảo hành xuyên suốt thời gian sử dụng.&nbsp;</span></span></p>
+          <blockquote>
+            <p><span style="font-size:16px;"><span style="color:#d9b91c;">- Khách hàng sẽ được lưu thông tin bảo hành
+                  Online qua SĐT mua hàng.&nbsp;</span></span></p>
+            <p><span style="font-size:16px;"><span style="color:#d9b91c;">- Thời gian dự kiến 9-12 ngày tuỳ tình trạng
+                  hư hỏng</span></span></p>
+            <p><span style="font-size:16px;"><span style="color:#d9b91c;">-&nbsp;Thời gian bảo hành miễn phí : 3 tháng
+                  đầu tiên (90 ngày) căn cứ vào ngày mua hàng.</span></span></p>
+          </blockquote>
+          <p><span style="font-size:16px;"><strong><span style="color: #ff0000;"><em>- Hotline hỗ trợ bảo hành :
+                    0377.254.742</em></span></strong></span></p>
+          <p><span style="font-size:16px;">Khi cần bảo hành Khách hàng gửi giày kèm sđt mua hàng về chi
+              nhánh&nbsp;<span style="color:#d9b91c;"><strong>AUTHENTIC</strong></span>&nbsp;gần nhất, chúng tôi
+              tiếp nhận bảo hành và sẽ thông báo cho khách hàng sau khi hoàn thành.</span></p>
+          <p><span style="font-size:16px;">Sau thời gian bảo hành miễn phí, các vấn đề liên quan đến giày được hỗ trợ
+              bảo hành có tính phí. Chi phí bảo hành dự kiến từ 70.000vnd --&gt; 150.000vnd tuỳ tình trạng hư
+              hỏng.</span></p>
+          <p><span style="font-size:16px;"><em><span class="fbUnderline">Q</span><span class="fbUnderline">uy định về
+                  Bảo hành Giày Bóng Đá Chính Hãng :</span></em></span></p>
+          <p><span style="color:#ff0000;"><span style="font-size: 15pt;"><span class="fbUnderline"><strong>- Hình thức
+                    bảo hành</strong>:</span></span></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><span class="fbUnderline"> SỬA CHỮA, KHẮC PHỤC NHỮNG HƯ HỎNG ĐỂ GIỮ FORM GIÀY
+                  CHUẨN VÀ TIẾP TỤC SỬ DỤNG TỐT . BẢO HÀNH KHÔNG PHẢI LÀ ĐỔI MỚI SẢN PHẨM.</span></span></span></p>
+          <h3><span style="font-size:18px;"><strong>1. CÁC TRƯỜNG HỢP ĐƯỢC BẢO HÀNH</strong></span></h3>
+          <blockquote>
+            <p><span style="font-size:16px;">- Hở keo ép mũi giày, thân giày do ma sát với mặt cỏ</span></p>
+            <p><span style="font-size:16px;">- Các vết Rách, lủng da do va chạm hoặc vật sắc nhọn đâm thủng</span></p>
+            <p><span style="font-size:16px;">- Các lỗi nhỏ ít gặp khác : Rách cổ thun, hỏng đệm mút gót...</span></p>
+          </blockquote>
+          <h3><span style="font-size:18px;"><strong>2. CÁC TRƯỜNG HỢP KHÔNG BẢO HÀNH ĐƯỢC</strong></span></h3>
+          <p><span style="font-size:16px;"><span style="color: #ff0000;"><b>Các trường hợp sau đây không bảo hành
+                  được, do các bộ phận không thể sửa chữa hay thay mới lại được :</b></span></span></p>
+          <blockquote>
+            <p><span style="font-size:16px;">- <strong>GÃY ĐINH, NỨT ĐẾ HOẶC BỂ ĐẾ</strong>&nbsp;khi thi đấu trên mặt
+                sân cứng hoặc tiếp xúc vật cứng ( đinh nhọn , đá nhọn ... ), hoặc nhiều trường hợp khách muốn giày mềm
+                nhanh thường hay bẻ gập đế , đưa cho người khác mang để NONG giày... các yếu tố chủ quan khác làm hư
+                tổn đế đều không thể bảo hành hay thay mới.</span></p>
+            <p><span style="font-size:16px;"><strong>- ĐẶC BIỆT ĐỐI VỚI CÁC VẤN ĐỀ LIÊN QUAN ĐẾN THẨM MỸ (trầy xước
+                  da, Nổ da ,Bong tróc logo ,phai màu, đứt dây, bong tróc các hoạ tiết thẩm mỹ khi ma sát trong thi
+                  đấu...)&nbsp;sẽ không thể bảo hành hay làm mới.</strong></span></p>
+          </blockquote>
+          <h2><span><span style="font-size: 15pt; color: #ff0000;"><strong><u>B. ĐỐI VỚI CÁC SẢN PHẨM BÓNG CHÍNH
+                    HÃNG</u>&nbsp;&nbsp;</strong></span></span></h2>
+          <p><span style="font-size:16px;"><span style="color: rgb(0, 0, 0);">Các sản phẩm bóng chính hãng
+                NIKE,ADIDAS, MOLTEN sẽ áp dụng chính sách bảo hành như sau:</span></span></p>
+          <p><span style="color: #ff0000; font-size: 12pt;"><strong>– CÁC LỖI ĐƯỢC BẢO HÀNH :</strong></span></p>
+          <blockquote>
+            <p><span style="font-size:16px;">- Thụt van, van bơm hỏng trong vòng 30 ngày&nbsp; ( tính từ ngày mua hàng
+                )</span></p>
+            <p><span style="font-size:16px;">- Xì lỗ mọt, giảm hơi nhanh không rõ nguyên nhân, không phải do bị vật
+                sắc nhọn đâm thủng trong 7 ngày ( tính từ ngày mua hàng )</span></p>
+          </blockquote>
+          <h2><span style="color:#ff0000;"><span style="font-size: 15pt;"><strong>– Hình thức bảo
+                  hành:</strong></span></span><span style="color:#d9b91c;"><span
+                style="font-size: 15pt;"><strong>&nbsp;Đổi sản phẩm mới</strong></span></span></h2>
+          <p><span style="font-size:16px;"><span style="color: #000000;">LƯU Ý : CÁC LỖI CHỦ QUAN CỦA KHÁCH HÀNG TRONG
+                QUÁ TRÌNH SỬ DỤNG VÀ&nbsp;THI ĐẤU NHƯ <strong><span style="color: #ff0000;">BỊ VẬT SẮC NHỌN ĐÂM THỦNG,
+                    MA SÁT VỚI NỀN SÂN CỨNG GÂY HAO MÒN, HƯ HỎNG , BONG TRÓC , TRẦY RÁCH BỀ MẶT QUẢ
+                    BÓNG</span>&nbsp;</strong>SẼ KHÔNG ĐƯỢC BẢO HÀNH.</span></span></p>
+          <h2><span style="font-size: 15pt; color: #ff0000;"><strong><u>C. ĐỐI VỚI CÁC SẢN PHẨM VÀ PHỤ KIỆN CHÍNH HÃNG
+                  KHÁC</u>&nbsp;</strong></span></h2>
+          <p><span style="font-size:16px;">- Không áp dụng chính sách bảo hành vì sản phẩm sẽ được kiểm tra kỹ lưỡng
+              trước khi gửi đến tay khách hàng.</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="site-section block-3 site-blocks-2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Sản phẩm liên quan</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 block-3">
+            <div class="nonloop-block-3 owl-carousel" style="text-align: center;">
+              <th:block th:each="product : ${products1}">
+                <div class="item">
+                  <div class="item-entry">
+                    <a th:href="@{/shop-single/}+${product.idProduct}" class="product-item md-height d-block">
+                      <img th:src="${product.img}" alt="Image" class="img-fluid" style="width:100%;">
+                    </a>
+                    <h2 class="item-title" th:utext="${product.name}"><a
+                        th:href="@{/shop-single/}+${product.idProduct}">Smooth Cloth</a></h2>
+                    <strong class="item-price" th:utext="${product.cost}"><del>$46.00</del> $28.00</strong>
+                    <div style="color: #ffb329;" class="star-rating" th:if="${product.rate}" th:text="${product.rate}">
+                    </div>
+                  </div>
+                </div>
+              </th:block>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <th:block id="custom-script">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+    <script>
+
+      function addToCart() {
+        var user = document.getElementById("checkUser").value;
+        var checkSize = $(".sizeProduct input[type='radio']:checked").val()
+        if (user == "") {
+          var login = confirm("Đăng nhập ngay để thêm vào giỏ hàng");
+          if (login) window.location = "/login";
+          return;
+        }
+        let data = {
+          idProduct: $('.idProduct:checked').val()
+        }
+        console.log(data);
+        $.ajax({
+          method: "post",
+          url: "/api/add-to-cart",
+          data: data,
+          dataType: 'application/json',
+          success: () => {
+
+          }
+        })
+        alert('Thêm vào giỏ thành công');
+      }
+
+
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + "đ";
+      }
+
+
+      function change() {
+        var abc = $(".multiCollapse input[type='radio']:checked").val()
+        console.log(abc);
+        filterResults(abc);
+      }
+
+      function filterResults(filters) {
+        var rElems = document.querySelectorAll(".info .container");
+        var showElems = [];
+
+        if (!rElems || rElems.length <= 0) {
+          return;
+        }
+        for (var i = 0; i < rElems.length; i++) {
+          var el = rElems[i];
+          var isHidden = false;
+          if (el.id === filters) {
+            isHidden = true;
+          }
+          if (isHidden) {
+            showElems.push(el);
+          }
+        }
+
+        for (var i = 0; i < rElems.length; i++) {
+          rElems[i].style.display = "none";
+        }
+
+        if (showElems.length <= 0) {
+          return;
+        }
+
+        for (var i = 0; i < showElems.length; i++) {
+          showElems[i].style.display = "block";
+        }
+      }
+    </script>
+    <script id="rendered-js">
+      /*--------------*/
+
+
+
+      // Main/Product image slider for product page
+      $('#detail .main-img-slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+        arrows: true,
+        fade: true,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        speed: 300,
+        lazyLoad: 'ondemand',
+        asNavFor: '.thumb-nav',
+        prevArrow: '<div class="slick-prev"><i class="i-prev"></i><span class="sr-only sr-only-focusable"><</span></div>',
+        nextArrow: '<div class="slick-next"><i class="i-next"></i><span class="sr-only sr-only-focusable">></span></div>'
+      });
+
+      // Thumbnail/alternates slider for product page
+      $('.thumb-nav').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        infinite: true,
+        centerPadding: '0px',
+        asNavFor: '.main-img-slider',
+        dots: false,
+        centerMode: false,
+        draggable: true,
+        speed: 200,
+        focusOnSelect: true,
+        prevArrow: '<div class="slick-prev"><i class="i-prev"></i><span class="sr-only sr-only-focusable"><</span></div>',
+        nextArrow: '<div class="slick-next"><i class="i-next"></i><span class="sr-only sr-only-focusable">></span></div>'
+      });
+
+
+
+      //keeps thumbnails active when changing main image, via mouse/touch drag/swipe
+      $('.main-img-slider').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+        //remove all active class
+        $('.thumb-nav .slick-slide').removeClass('slick-current');
+        //set active class for current slide
+        $('.thumb-nav .slick-slide:not(.slick-cloned)').eq(currentSlide).addClass('slick-current');
+      });
+      //# sourceURL=pen.js
+
+      var ratingElement = document.querySelectorAll('.star-rating');
+      ratingElement.forEach(element => {
+        var rate = parseFloat(element.textContent);
+        var starRate = "";
+        for ( ; rate>0 ; --rate){
+          if(rate-1 === -0.5){
+            starRate += "<i class=\"fas fa-star-half-alt\"></i>"
+          }else{
+            starRate += "<i class=\"fas fa-star\"></i>"
+          }   
+        }        
+        element.innerHTML = starRate;
+      });
+    </script>
+  </th:block>
+</body>
+
+</html>

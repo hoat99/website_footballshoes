@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+      .order-bill th {
+        width: 1em;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <a
+              th:href="@{/cart}">Giỏ hàng</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Đặt
+              hàng</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <form action="/create-order" method="post">  -->
+    <div class="site-section">
+      <div class="container">
+        <form action="/create-payment" method="post">
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0">
+           
+            <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
+            <div class="p-3 p-lg-5 border">
+              <div class="form-group row">
+                
+                <div class="col-md-6">
+                  <input type="text" class="form-control" th:value="${user.username}" id="username" name="username"
+                    hidden>
+                  <label for="fullname" class="text-black">Họ và tên <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" th:value="${user.name}" id="fullname" name="fullname"
+                    placeholder="Nhập tên">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <label for="address" class="text-black">Địa chỉ <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" th:value="${user.address}" id="address" name="address"
+                    placeholder="Nhập địa chỉ">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="phone" class="text-black">Số điện thoại <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
+                    placeholder="Nhập số điện thoại">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="email" class="text-black">Email <span class="text-danger"></span></label>
+                  <input type="text" class="form-control" th:value="${user.email}" id="email" name="email"
+                    placeholder="Nhập email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="note" class="text-black">Ghi chú</label>
+                <textarea name="note" id="note" cols="30" rows="5" class="form-control"
+                  placeholder="Nhập chú thích........."></textarea>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+
+            <!-- <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                <div class="p-3 p-lg-5 border">
+                  
+                  <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                  <div class="input-group w-75">
+                    <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary btn-sm px-4" type="button" id="button-addon2">Apply</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+             -->
+            <div class="row mb-5">
+              <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">Đơn hàng của bạn</h2>
+
+                <div class="p-3 p-lg-5 border">
+                  <table class="table site-block-order-table mb-5 order-bill">
+                    <thead>
+                      <th>Sản phẩm</th>
+                      <th>Giá</th>
+                    </thead>
+                    <tbody>
+                      <th:block th:each="cart : ${carts}">
+                        <input type="text" th:value="${cart.idCart}" hidden>
+                        <tr>
+                          <td><span th:utext="${cart.product.name}"></span> <strong class="mx-2">x</strong> <span
+                              th:utext="${cart.quantity}"> </span></td>
+                          <td class="item-price" th:utext="${cart.cost} * ${cart.quantity}">$250.00</td>
+                        </tr>
+                      </th:block>
+                      <!-- <tr>
+                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                        <td class="text-black item-price" th:utext="${subtotal}">$350.00</td>
+                      </tr> -->
+                      <tr>
+                        <td class="text-black font-weight-bold"><strong>Tổng giá</strong></td>
+                        <td class="text-black font-weight-bold item-price" th:utext="${subtotal}">
+                          <strong>$350.00</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="border p-3 mb-5">
+                    <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsepaypal" role="button"
+                        aria-expanded="false" aria-controls="collapsepaypal">Đặt hàng và thanh toán online</a></h3>
+                        <div class="collapse" id="collapsepaypal">
+                          <div class="py-2" style="margin-top: .5em;">
+                        
+                            <input type="text" th:value="${subtotal}" name="amount" id="amount" hidden>
+                            <button type="submit" style=" background-color: #fff; border: none;"> <img
+                                src="images/logo-vnpay.png" style="float: left;" alt="" width="30%"></button>
+                          </div>
+                        </div>
+                    
+
+                  </div>
+                  
+                  <div class="form-group">
+                    <button  onclick="createOrder()" class="btn btn-primary btn-lg btn-block" type="button">Đặt
+                      hàng</button>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+      function createOrder(e) {
+        let data = {
+          username: $('#username').val(),
+          fullname: $('#fullname').val(),
+          address: $('#address').val(),
+          phone: $('#phone').val(),
+          email: $('#email').val(),
+          note: $('#note').val()
+        }
+        $.ajax({
+          method: 'post',
+          url: '/create-order',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: res => {
+            console.log(data);
+            alert("thêm thành công!");
+            window.location = `/thankyou`;
+
+          }
+        });
+      }
+      // function createPayment() {
+      //   let data = {
+      //     amount: $('#amount').val(),
+      //     username: $('#username').val(),
+      //     fullname: $('#fullname').val(),
+      //     address: $('#address').val(),
+      //     phone: $('#phone').val(),
+      //     email: $('#email').val(),
+      //     note: $('#note').val()
+      //   }
+      //   $.ajax({
+      //     method: 'post',
+      //     url: '/create-payment',
+      //     contentType: 'application/json',
+      //     data: JSON.stringify(data),
+      //     success: res => {
+      //     }
+      //   });
+      // }
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        console.log(parseInt(cost.textContent));
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + " đ";
+      }
+    </script>
+  </th:block>
+</body>
+
+</html>

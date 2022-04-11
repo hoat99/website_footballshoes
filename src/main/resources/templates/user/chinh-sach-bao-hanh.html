@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+  th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+        blockquote{
+            border-left: #eee 3px solid;
+        }
+        blockquote p {
+            margin-left: 1em;
+        }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+
+    <div id="mainContent">
+      <div class="bg-light py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                class="text-black">Chính sách bảo hành</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="container" style="margin-top: 3em; box-shadow: 0.2em 0.6em 1em 0.3em grey; ">
+            <div class="row" style="margin: 1em;">
+                <h2 style="font-weight: bold; margin-top: 1em;">Hướng dẫn mua hàng</h2>                   
+<hr>
+                <div class="product-description-wrapper">
+                    <hr>
+                    <p><span style="font-size: 12pt; color: #000000;"><em>Rất cảm ơn quý khách hàng đã tin tưởng và lựa chọn mua
+                          sắm&nbsp;tại&nbsp;</em></span><span style="color:#d9b91c;"><span
+                          style="font-size: 12pt;"><em>AUTHENTIC.COM</em></span></span><span
+                        style="font-size: 12pt; color: #000000;"><em>.&nbsp;Sau đây là chính sách bảo hành đối với các sản phẩm
+                          chính hãng do AUTHENTIC phân phối :&nbsp;&nbsp;</em></span></p>
+                    <h2><span><span style="font-size: 15pt; color: #ff0000;"><strong><u>A. ĐỐI VỚI CÁC SẢN PHẨM GIÀY BÓNG ĐÁ
+                              CHÍNH HÃNG</u>&nbsp;</strong></span></span></h2>
+                    <p><span style="font-size:16px;"><span class="fbUnderline">Bóng đá là môn thể thao đối kháng, những va chạm,
+                          những trầy xước, hư hao là không thể tránh khỏi. Tất cả sản phẩm Giày Bóng Đá Chính Hãng mua tại hệ
+                          thống AUTHENTIC.COM đều được hỗ trợ bảo hành xuyên suốt thời gian sử dụng.&nbsp;</span></span></p>
+                    <blockquote>
+                      <p><span style="font-size:16px;"><span style="color:#d9b91c;">- Khách hàng sẽ được lưu thông tin bảo hành
+                            Online qua SĐT mua hàng.&nbsp;</span></span></p>
+                      <p><span style="font-size:16px;"><span style="color:#d9b91c;">- Thời gian dự kiến 9-12 ngày tuỳ tình trạng
+                            hư hỏng</span></span></p>
+                      <p><span style="font-size:16px;"><span style="color:#d9b91c;">-&nbsp;Thời gian bảo hành miễn phí : 3 tháng
+                            đầu tiên (90 ngày) căn cứ vào ngày mua hàng.</span></span></p>
+                    </blockquote>
+                    <p><span style="font-size:16px;"><strong><span style="color: #ff0000;"><em>- Hotline hỗ trợ bảo hành :
+                              0377.254.742</em></span></strong></span></p>
+                    <p><span style="font-size:16px;">Khi cần bảo hành Khách hàng gửi giày kèm sđt mua hàng về chi
+                        nhánh&nbsp;<span style="color:#d9b91c;"><strong>AUTHENTIC</strong></span>&nbsp;gần nhất, chúng tôi
+                        tiếp nhận bảo hành và sẽ thông báo cho khách hàng sau khi hoàn thành.</span></p>
+                    <p><span style="font-size:16px;">Sau thời gian bảo hành miễn phí, các vấn đề liên quan đến giày được hỗ trợ
+                        bảo hành có tính phí. Chi phí bảo hành dự kiến từ 70.000vnd --&gt; 150.000vnd tuỳ tình trạng hư
+                        hỏng.</span></p>
+                    <p><span style="font-size:16px;"><em><span class="fbUnderline">Q</span><span class="fbUnderline">uy định về
+                            Bảo hành Giày Bóng Đá Chính Hãng :</span></em></span></p>
+                    <p><span style="color:#ff0000;"><span style="font-size: 15pt;"><span class="fbUnderline"><strong>- Hình thức
+                              bảo hành</strong>:</span></span></span><span style="color:#d9b91c;"><span
+                          style="font-size: 15pt;"><span class="fbUnderline"> SỬA CHỮA, KHẮC PHỤC NHỮNG HƯ HỎNG ĐỂ GIỮ FORM GIÀY
+                            CHUẨN VÀ TIẾP TỤC SỬ DỤNG TỐT . BẢO HÀNH KHÔNG PHẢI LÀ ĐỔI MỚI SẢN PHẨM.</span></span></span></p>
+                    <h3><span style="font-size:18px;"><strong>1. CÁC TRƯỜNG HỢP ĐƯỢC BẢO HÀNH</strong></span></h3>
+                    <blockquote>
+                      <p><span style="font-size:16px;">- Hở keo ép mũi giày, thân giày do ma sát với mặt cỏ</span></p>
+                      <p><span style="font-size:16px;">- Các vết Rách, lủng da do va chạm hoặc vật sắc nhọn đâm thủng</span></p>
+                      <p><span style="font-size:16px;">- Các lỗi nhỏ ít gặp khác : Rách cổ thun, hỏng đệm mút gót...</span></p>
+                    </blockquote>
+                    <h3><span style="font-size:18px;"><strong>2. CÁC TRƯỜNG HỢP KHÔNG BẢO HÀNH ĐƯỢC</strong></span></h3>
+                    <p><span style="font-size:16px;"><span style="color: #ff0000;"><b>Các trường hợp sau đây không bảo hành
+                            được, do các bộ phận không thể sửa chữa hay thay mới lại được :</b></span></span></p>
+                    <blockquote>
+                      <p><span style="font-size:16px;">- <strong>GÃY ĐINH, NỨT ĐẾ HOẶC BỂ ĐẾ</strong>&nbsp;khi thi đấu trên mặt
+                          sân cứng hoặc tiếp xúc vật cứng ( đinh nhọn , đá nhọn ... ), hoặc nhiều trường hợp khách muốn giày mềm
+                          nhanh thường hay bẻ gập đế , đưa cho người khác mang để NONG giày... các yếu tố chủ quan khác làm hư
+                          tổn đế đều không thể bảo hành hay thay mới.</span></p>
+                      <p><span style="font-size:16px;"><strong>- ĐẶC BIỆT ĐỐI VỚI CÁC VẤN ĐỀ LIÊN QUAN ĐẾN THẨM MỸ (trầy xước
+                            da, Nổ da ,Bong tróc logo ,phai màu, đứt dây, bong tróc các hoạ tiết thẩm mỹ khi ma sát trong thi
+                            đấu...)&nbsp;sẽ không thể bảo hành hay làm mới.</strong></span></p>
+                    </blockquote>
+                    <h2><span><span style="font-size: 15pt; color: #ff0000;"><strong><u>B. ĐỐI VỚI CÁC SẢN PHẨM BÓNG CHÍNH
+                              HÃNG</u>&nbsp;&nbsp;</strong></span></span></h2>
+                    <p><span style="font-size:16px;"><span style="color: rgb(0, 0, 0);">Các sản phẩm bóng chính hãng
+                          NIKE,ADIDAS, MOLTEN sẽ áp dụng chính sách bảo hành như sau:</span></span></p>
+                    <p><span style="color: #ff0000; font-size: 12pt;"><strong>– CÁC LỖI ĐƯỢC BẢO HÀNH :</strong></span></p>
+                    <blockquote>
+                      <p><span style="font-size:16px;">- Thụt van, van bơm hỏng trong vòng 30 ngày&nbsp; ( tính từ ngày mua hàng
+                          )</span></p>
+                      <p><span style="font-size:16px;">- Xì lỗ mọt, giảm hơi nhanh không rõ nguyên nhân, không phải do bị vật
+                          sắc nhọn đâm thủng trong 7 ngày ( tính từ ngày mua hàng )</span></p>
+                    </blockquote>
+                    <h2><span style="color:#ff0000;"><span style="font-size: 15pt;"><strong>– Hình thức bảo
+                            hành:</strong></span></span><span style="color:#d9b91c;"><span
+                          style="font-size: 15pt;"><strong>&nbsp;Đổi sản phẩm mới</strong></span></span></h2>
+                    <p><span style="font-size:16px;"><span style="color: #000000;">LƯU Ý : CÁC LỖI CHỦ QUAN CỦA KHÁCH HÀNG TRONG
+                          QUÁ TRÌNH SỬ DỤNG VÀ&nbsp;THI ĐẤU NHƯ <strong><span style="color: #ff0000;">BỊ VẬT SẮC NHỌN ĐÂM THỦNG,
+                              MA SÁT VỚI NỀN SÂN CỨNG GÂY HAO MÒN, HƯ HỎNG , BONG TRÓC , TRẦY RÁCH BỀ MẶT QUẢ
+                              BÓNG</span>&nbsp;</strong>SẼ KHÔNG ĐƯỢC BẢO HÀNH.</span></span></p>
+                    <h2><span style="font-size: 15pt; color: #ff0000;"><strong><u>C. ĐỐI VỚI CÁC SẢN PHẨM VÀ PHỤ KIỆN CHÍNH HÃNG
+                            KHÁC</u>&nbsp;</strong></span></h2>
+                    <p><span style="font-size:16px;">- Không áp dụng chính sách bảo hành vì sản phẩm sẽ được kiểm tra kỹ lưỡng
+                        trước khi gửi đến tay khách hàng.</span></p>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+  <th:block id="custom-script">
+
+  </th:block>
+</body>
+</html>

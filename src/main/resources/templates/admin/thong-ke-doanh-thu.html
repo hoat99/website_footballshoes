@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title th:utext="${title}"></title>
+
+  <th:block id="custom-style">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+  </th:block>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" id="mainContent">
+          <br>
+          <h3 style="text-align: center;" class="m-0 font-weight-bold text-primary">Thống kê doanh thu tháng <span
+              id="month" th:utext="${month} +' - '+  ${year}"></span></h3>
+          <br>
+          <h3 id="total" style="    float: right;
+          margin-right: 5em;"></h3>
+          <div class="container">
+            <canvas id="myChart"></canvas>
+          </div>
+          <br>
+          <div class="container">
+            <div class="row">
+              <h3 class="m-0 font-weight-bold text-primary text-center">Thống kê đơn hàng tháng <span
+                  th:utext="${month} +' - '+  ${year}"></span></h3>
+              <table class="table" id="table2excel">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Ghi chú</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Ngày nhận hàng</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thông tin thanh toán</th>
+                    <th scope="col">Hình thức thanh toán</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="m-0 font-weight-bold text-primary text-center" style="border-right: 1px solid #e1e1e1;"
+                      th:rowspan="${ordersReceivedThisMonth.size()} +2">
+                      <h4>Đã nhận hàng</h4>
+                    </td>
+                  </tr>
+                  <th:block th:each="order : ${ordersReceivedThisMonth}">
+                    <tr>
+                      <td>
+                        <p th:if="${order.idOrder1}" th:utext="${order.idOrder1}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.username}" th:utext="${order.username}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.address}" th:utext="${order.address}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.email}" th:utext="${order.email}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.fullName}" th:utext="${order.fullName}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.phone}" th:utext="${order.phone}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.note}" th:utext="${order.note}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.createAt}" th:utext="${order.createAt}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.receivedAt}" th:utext="${order.receivedAt}">2</p>
+                      </td>
+                      <td>
+                        <p class="price11" th:if="${order.price}" th:utext="${order.price}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.status.deliveryStatus}" th:utext="${order.status.deliveryStatus}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentInfo}" th:utext="${order.paymentInfo.idPaymentInfo}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentMethod}" th:utext="${order.paymentMethod}">2</p>
+                      </td>
+                    </tr>
+                  </th:block>
+                  <tr>
+                    <td style="text-align: end;" id="total11" colspan="13">aaaaaaa</td>
+                  </tr>
+                  <tr>
+                    <td class="m-0 font-weight-bold text-primary text-center" style="border-right: 1px solid #e1e1e1;"
+                      th:rowspan="${ordersNotReceivedThisMonth.size()} +2">
+                      <h4>Chưa nhận hàng</h4>
+                    </td>
+                  </tr>
+                  <th:block th:each="order : ${ordersNotReceivedThisMonth}">
+                    <tr>
+                      <td>
+                        <p th:if="${order.idOrder1}" th:utext="${order.idOrder1}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.username}" th:utext="${order.username}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.address}" th:utext="${order.address}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.email}" th:utext="${order.email}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.fullName}" th:utext="${order.fullName}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.phone}" th:utext="${order.phone}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.note}" th:utext="${order.note}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.createAt}" th:utext="${order.createAt}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.receivedAt}" th:utext="${order.receivedAt}">2</p>
+                      </td>
+                      <td>
+                        <p class="price12" th:if="${order.price}" th:utext="${order.price}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.status.deliveryStatus}" th:utext="${order.status.deliveryStatus}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentInfo}" th:utext="${order.paymentInfo.idPaymentInfo}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentMethod}" th:utext="${order.paymentMethod}">2</p>
+                      </td>
+                    </tr>
+                  </th:block>
+                  <tr>
+                    <td style="text-align: end;" id="total12" colspan="13">aaaaaaa</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button id="btn1" class="btn btn-success">Xuất File Excel</button>
+            </div>
+          </div>
+          <br>
+          <h3 style="text-align: center;" class="m-0 font-weight-bold text-primary">Thống kê doanh thu tháng <span
+              id="month-before" th:utext="${monthBefore} +' - '+  ${year}"></span></h3>
+          <br>
+          <h3 id="total2" style="    float: right;
+          margin-right: 5em;"></h3>
+          <div class="container">
+            <canvas id="myChart2"></canvas>
+          </div>
+          <br>
+          <div class="container">
+            <div class="row">
+              <h3 class="m-0 font-weight-bold text-primary text-center">Thống kê đơn hàng tháng <span
+                  th:utext="${monthBefore} +' - '+  ${year}"></span></h3>
+              <table class="table" id="table2excel2">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Ghi chú</th>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Ngày nhận hàng</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thông tin thanh toán</th>
+                    <th scope="col">Hình thức thanh toán</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="m-0 font-weight-bold text-primary text-center" style="border-right: 1px solid #e1e1e1;"
+                      th:rowspan="${ordersReceivedMonthEarlier.size()} + 2">
+                      <h4>Đã nhận hàng</h4>
+                    </td>
+                  </tr>
+                  <th:block th:each="order : ${ordersReceivedMonthEarlier}">
+                    <tr>
+                      <td>
+                        <p th:if="${order.idOrder1}" th:utext="${order.idOrder1}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.username}" th:utext="${order.username}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.address}" th:utext="${order.address}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.email}" th:utext="${order.email}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.fullName}" th:utext="${order.fullName}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.phone}" th:utext="${order.phone}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.note}" th:utext="${order.note}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.createAt}" th:utext="${order.createAt}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.receivedAt}" th:utext="${order.receivedAt}">2</p>
+                      </td>
+                      <td>
+                        <p class="price21" th:if="${order.price}" th:utext="${order.price}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.status.deliveryStatus}" th:utext="${order.status.deliveryStatus}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentInfo}" th:utext="${order.paymentInfo.idPaymentInfo}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentMethod}" th:utext="${order.paymentMethod}">2</p>
+                      </td>
+                    </tr>
+                  </th:block>
+                  <tr>
+                    <td style="text-align: end;" id="total21" colspan="13">aaaaaaa</td>
+                  </tr>
+                  <tr>
+                    <td class="m-0 font-weight-bold text-primary text-center" style="border-right: 1px solid #e1e1e1;"
+                      th:rowspan="${ordersNotReceivedMonthEarlier.size()} + 2">
+                      <h4>Chưa nhận hàng</h4>
+                    </td>
+                  </tr>
+                  <th:block th:each="order : ${ordersNotReceivedMonthEarlier}">
+                    <tr>
+                      <td>
+                        <p th:if="${order.idOrder1}" th:utext="${order.idOrder1}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.username}" th:utext="${order.username}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.address}" th:utext="${order.address}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.email}" th:utext="${order.email}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.fullName}" th:utext="${order.fullName}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.phone}" th:utext="${order.phone}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.note}" th:utext="${order.note}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.createAt}" th:utext="${order.createAt}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.receivedAt}" th:utext="${order.receivedAt}">2</p>
+                      </td>
+                      <td>
+                        <p class="price22" th:if="${order.price}" th:utext="${order.price}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.status.deliveryStatus}" th:utext="${order.status.deliveryStatus}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentInfo}" th:utext="${order.paymentInfo.idPaymentInfo}">2</p>
+                      </td>
+                      <td>
+                        <p th:if="${order.paymentMethod}" th:utext="${order.paymentMethod}">2</p>
+                      </td>
+                    </tr>
+                  </th:block>
+                  <tr>
+                    <td style="text-align: end;" id="total22" colspan="13">aaaaaaa</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button id="btn2" class="btn btn-success">Xuất File Excel</button>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <th:block id="custom-script">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/admin/js/jquery.table2excel.min.js"></script>
+    <script>
+
+      let month = document.getElementById("month").textContent;
+      let monthEarlier = document.getElementById("month-before").textContent;
+
+      let price11 = document.querySelectorAll(".price11");
+      let price12 = document.querySelectorAll(".price12");
+      let price21 = document.querySelectorAll(".price21");
+      let price22 = document.querySelectorAll(".price22");
+
+      var cost11 = 0;
+      var cost12 = 0;
+      var cost21 = 0;
+      var cost22 = 0;
+
+      price11.forEach(element => {
+        cost11 += element.innerText;
+      });
+
+      price12.forEach(element => {
+        cost12 += parseFloat(element.innerText);
+      });
+
+      price21.forEach(element => {
+        cost21 += parseFloat(element.innerText);
+      });
+
+      price22.forEach(element => {
+        cost22 += parseFloat(element.innerText);
+      });
+
+      document.getElementById("total11").textContent = "Tổng: " + cost11;
+      document.getElementById("total12").textContent = "Tổng: " + cost12;
+      document.getElementById("total21").textContent = "Tổng: " + cost21;
+      document.getElementById("total22").textContent = "Tổng: " + cost22;
+
+
+
+      $("#btn1").click(function () {
+        $("#table2excel").table2excel({
+          name: "Worksheet Name",
+          filename: "Thống kê đơn hàng tháng" + month,
+          fileext: ".xls"
+        })
+      });
+
+      $("#btn2").click(function () {
+        $("#table2excel2").table2excel({
+          name: "Worksheet Name",
+          filename: "Thống kê đơn hàng tháng" + monthEarlier,
+          fileext: ".xls"
+        })
+      });
+
+
+      let myChart = document.getElementById('myChart').getContext('2d');
+
+      let myChart2 = document.getElementById('myChart2').getContext('2d');
+
+      // Global Options
+      // Chart.defaults.global.defaultFontFamily = 'Lato';
+      Chart.defaults.global.defaultFontSize = 16;
+      // Chart.defaults.global.defaultFontColor = '#777';
+      let data = new Array();
+      async function getDoanhThu() {
+        const response = await fetch('/api/doanh-thu/get');
+        const dataResponse = await response.json();
+        let total = 0;
+        dataResponse.forEach(element => {
+          data.push(element);
+          total += element;
+        });
+        let month = document.getElementById('month').textContent;
+        document.getElementById('total').textContent = "Tổng danh thu tháng " + month + " là " + total + "VNĐ";
+
+        let massPopChart = new Chart(myChart, {
+
+          type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data: {
+            labels: ['Ngày 1->6', 'Ngày 6->11', 'Ngày 11->16', 'Ngày 16->21', 'Ngày 21->26', 'Ngày 26->31'],
+            datasets: [{
+              label: 'Doanh thu',
+              data: data,
+              //backgroundColor:'green',
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+              ],
+              borderWidth: 1,
+              borderColor: '#777',
+              hoverBorderWidth: 3,
+              hoverBorderColor: '#000'
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Doanh thu',
+              fontSize: 25
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: '#000'
+              }
+            },
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }
+            },
+            tooltips: {
+              enabled: true
+            }
+          }
+        });
+      } getDoanhThu()
+
+      let data2 = new Array();
+      async function getDoanhThu2() {
+        const response = await fetch('/api/doanh-thu/get-month-before');
+        const dataResponse = await response.json();
+        let total = 0;
+        dataResponse.forEach(element => {
+          data2.push(element);
+          total += element;
+        });
+        let month = document.getElementById('month-before').textContent;
+        document.getElementById('total2').textContent = "Tổng danh thu tháng " + month + " là " + total + " VNĐ";
+
+        let massPopChart = new Chart(myChart2, {
+
+          type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+          data: {
+            labels: ['Ngày 1->6', 'Ngày 6->11', 'Ngày 11->16', 'Ngày 16->21', 'Ngày 21->26', 'Ngày 26->31'],
+            datasets: [{
+              label: 'Doanh thu',
+              data: data2,
+              //backgroundColor:'green',
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+              ],
+              borderWidth: 1,
+              borderColor: '#777',
+              hoverBorderWidth: 3,
+              hoverBorderColor: '#000'
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: 'Doanh thu',
+              fontSize: 25
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: '#000'
+              }
+            },
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                bottom: 0,
+                top: 0
+              }
+            },
+            tooltips: {
+              enabled: true
+            }
+          }
+        });
+      } getDoanhThu2()
+    </script>
+
+  </th:block>
+</body>
+
+</html>

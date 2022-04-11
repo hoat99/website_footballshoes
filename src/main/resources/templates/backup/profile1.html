@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style>
+        header {
+            padding: 156px 0 100px;
+        }
+
+        section {
+            padding: 150px 0;
+        }
+    </style>
+    <title>Hồ sơ cá nhân</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<div class="container">
+    <div class="row">
+        <form class="col-md-12" id="form-update-info" style="margin-top: 30px; margin-bottom: 30px;" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Username</label>
+                    <input name="username" id="username" type="text" class="form-control" placeholder="username" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input name="email" id="email" type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Phone</label>
+                    <input name="phone" type="text" id="phone" class="form-control"  placeholder="Phone">
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Họ tên</label>
+                    <input name="name" type="text" id="name" class="form-control"  placeholder="Name">
+                </div>
+            </div>
+            <button onclick="updateProfile()" type="button" class="btn btn-primary">Cập nhật</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom JavaScript for this theme -->
+<script src="/js/scrolling-nav.js"></script>
+<script>
+    function loadUserInfo() {
+        $.ajax({
+            url: "/api/user-profile",
+            type: 'get',
+            success: data => {
+                $('#phone').val(data.phone);
+                $('#username').val(data.username);
+                $('#email').val(data.email);
+                $('#name').val(data.name);
+            }
+        })
+    }
+
+    function updateProfile() {
+        let form = document.getElementById("form-update-info");
+        let data = new FormData(form);
+        $.ajax({
+            type:'put',
+            url: `/api/update-profile/${$('#username').val()}`,
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                console.log("success");
+                console.log(data);
+                loadUserInfo();
+                alert("Update thông tin thành công!");
+            },
+            error: function(data){
+                console.log("error");
+                console.log(data);
+            }
+        });
+    }
+
+    $(()=>{
+       loadUserInfo();
+    });
+</script>
+
+</body>
+
+</html>

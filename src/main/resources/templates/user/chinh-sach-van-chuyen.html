@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+    <th:block id="custom-style">
+        <style>
+            blockquote{
+                border-left: #eee 3px solid;
+            }
+            blockquote p {
+                margin-left: 1em;
+            }
+        </style>
+    
+    </th:block>
+</head>
+
+<body>
+
+
+    <div id="mainContent">
+        <div class="bg-light py-3">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black">Chính sách vận chuyển</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="container" style="margin-top: 3em; box-shadow: 0.2em 0.6em 1em 0.3em grey; ">
+            <div class="row" style="margin-left: 1em">
+                <div class="col-md-12" id="layout-page">
+                    <span class="header-page clearfix">
+                        <h2 style="font-weight: bold; margin-top: 1em;">Chính sách vận chuyển</h2>
+                    </span>
+    <hr>
+                    <div class="content-page">
+    
+                        <h2><span style="font-size:24px;"><u><span style="color: #ff0000;"><strong>A. CƯỚC PHÍ VẬN
+                                            CHUYỂN</strong>&nbsp;</span></u></span></h2>
+                        <p><span style="font-size:16px;">1. Đối với khách hàng ở&nbsp;TP.HCM và các tỉnh lân cận :
+                                <em><strong>Miễn phí cước vận chuyển bằng GrabBike (tối đa 50.000vnd )&nbsp;với đơn hàng từ
+                                        1.000.000vnd trở lên</strong></em>.&nbsp;</span></p>
+                        <p><span style="font-size:16px;">2. Đối với khách hàng ở các Tỉnh, TP khác : <em><strong>Miễn phí
+                                        cước vận chuyển với đơn hàng từ 1.000.000vnd&nbsp;trở lên (không áp dụng cho hình
+                                        thức giao hoả tốc)&nbsp;</strong></em></span></p>
+                        <p><span style="font-size:16px;">3. Gửi nhà xe, chành xe :&nbsp;<em style="font-weight: bold;">Hỗ
+                                    trợ cước gửi nhà xe, chành xe (tối đa 50.000vnd) với đơn hàng từ 1.000.000vnd trở
+                                    lên.</em></span></p>
+                        <p><span style="font-size:16px;">4. Dịch vụ thử giày - thanh toán tại nhà :&nbsp;<em><strong>Khách
+                                        hàng sẽ&nbsp;đặt cọc trước <span
+                                            style="color:#ff0000;">100.000vnd</span>,</strong><strong> tiền cọc được trừ vào
+                                        giá sản phẩm. Khách nhận hàng sẽ được KIỂM TRA SẢN PHẨM, THỬ GIÀY và sau đó thanh
+                                        toán cho shipper. </strong>Trong trường hợp khách không nhận hàng, tiền cọc được
+                                    tính là phí vận chuyển 2 chiều và sẽ không hoàn lại.</em>&nbsp;</span></p>
+                        <p><span style="font-size:16px;">5. <strong>Tra cước phí vận chuyển Viettel Post tại
+                                    đây:</strong>&nbsp;<em><a
+                                        href="https://viettelpost.com.vn/tra-cuoc-va-thoi-gian-van-chuyen/"><span
+                                            style="color:#3498db;">https://viettelpost.com.vn/tra-cuoc-va-thoi-gian-van-chuyen/</span></a></em></span>
+                        </p>
+                        <p><span style="font-size:16px;">6. <strong>Tra cứu lộ trình vận chuyển đơn hàng tại
+                                    đây:</strong>&nbsp;<em><a
+                                        href="https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/"><span
+                                            style="color:#3498db;">https://viettelpost.com.vn/tra-cuu-hanh-trinh-don/</span></a></em></span>
+                        </p>
+                        <blockquote>
+                            <p><span style="font-size:16px;">- Quý khách vui lòng<strong>&nbsp;<span
+                                            style="color: #ff0000;">kiểm tra kỹ hàng hoá ngay khi nhận
+                                            hàng</span></strong><span style="color: #ff0000;">&nbsp;</span>từ người giao
+                                    hàng, nếu có vấn đề liên quan tới mẫu mã, chất lượng, số lượng hàng hoá không đúng như
+                                    trong đơn đặt hàng, Quý khách vui lòng liên hệ <span
+                                        style="color:#ff0000;"><em><strong>Hotline : 0789.970.907</strong></em></span> để
+                                    phối hợp với đơn vị chuyển phát hàng hóa xử lý.</span></p>
+                        </blockquote>
+                        <p><span style="font-size:16px;">7. <strong>Các chi phí vận chuyển 2 chiều phát sinh trong quá trình
+                                    đổi hàng</strong>&nbsp;: sẽ do khách hàng thanh toán.</span></p>
+                        <p><span style="font-size:16px;">8. <strong>Những trường hợp đổi hàng do vận chuyển nhầm
+                                    Size</strong>, <strong>nhầm mẫu</strong> : <span
+                                    style="color:#d9b91c;"><strong></strong></span> sẽ chịu chi phí vận chuyển 2
+                                chiều và cam kết mang đến cho khách hàng một sản phẩm ưng ý nhất.</span></p>
+                        <h2><span style="font-size:24px;"><strong><u><span style="color: #ff0000;">B. THỜI GIAN VẬN
+                                            CHUYỂN</span></u></strong></span></h2>
+                        <p><span style="font-size:16px;">1. Đối với khách hàng ở TP HCM : <span
+                                    style="color:#ff0000;"><strong>từ 1 - 2 ngày&nbsp;</strong></span></span></p>
+                        <p><span style="font-size:16px;">2. Đối với các tỉnh, TP khác : <span
+                                    style="color:#ff0000;"><strong>từ 3 - 5 ngày ( tuỳ khu vực
+                                        )</strong>&nbsp;</span></span></p>
+                        <blockquote>
+                            <p><span style="font-size:16px;"><em>Lưu ý : thời gian vận chuyển chỉ mang tính chất tương đối,
+                                        còn phụ thuộc vào những yếu tố khách quan khác.</em></span></p>
+                        </blockquote>
+                        <p><em><span style="font-size:16px;"><span style="color:#ff0000;">*Chính sách vận chuyển áp dụng từ
+                                        ngày 05.10.2021 cho đến khi có thông báo mới.&nbsp;</span></span></em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block id="custom-script">
+
+    </th:block>
+</body>
+
+</html>

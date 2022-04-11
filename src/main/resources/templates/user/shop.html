@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+  <th:block id="custom-style">
+    <title th:utext="${title}"></title>
+    <style>
+      .product-item img:hover {
+        max-width: 300px;
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+  <div id="mainContent">
+    <th:block th:each="selectedBanner :${selectedBanners}">
+      <div class="site-blocks-cover" data-aos="fade">
+        <div class="container">
+          <div class="row">
+
+            <div class="col-md-6 ml-auto order-md-2 align-self-start">
+              <div class="site-block-cover-content">
+                <h2 class="sub-title" th:utext="${selectedBanner.shortDescription}"></h2>
+                <h1 th:utext="${selectedBanner.content}"></h1>
+                <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+              </div>
+            </div>
+            <div class="col-md-6 order-1 align-self-end">
+              <img th:src="${selectedBanner.img}" alt="Image" style="width: 100%;" class="img-fluid">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </th:block>
+    <div class="custom-border-bottom py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Home</a> <span class="mx-2 mb-0">/</span> <strong
+              class="text-black">Shop</strong></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="site-section">
+      <div class="container">
+        <img src="" alt="">
+        <div class="row mb-5">
+          <div class="col-md-9 order-1">
+
+            <div class="row align">
+              <div class="col-md-12 mb-5">
+                <div class="float-md-left">
+                  <h2 class="text-black h5"><a th:href="@{/shop}">Shop All</a> <span
+                      th:if="${strademark != '' or courtyard != ''}">&nbsp;&nbsp;/&nbsp;</span> <span
+                      th:if="${strademark}" th:utext="${strademark}"></span><span th:if="${courtyard}"
+                      th:utext="${courtyard}"></span></h2>
+                </div>
+                <div class="d-flex">
+                  <div class="dropdown mr-1 ml-md-auto">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Thời gian
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                      <a class="dropdown-item" th:href="@{/shop/(option=lastest)}">Mới nhất</a>
+                      <a class="dropdown-item" th:href="@{/shop/(option=oldest)}">Cũ nhất</a>
+                    </div>
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference"
+                      data-toggle="dropdown">Giá</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                      <a class="dropdown-item"
+                        th:href="@{/shop/(option=lowToHigh, strademark=${strademark},courtyard=${courtyard})}">Thấp đến
+                        cao</a>
+                      <a class="dropdown-item"
+                        th:href="@{/shop/(option=highToLow, strademark=${strademark},courtyard=${courtyard})}">Cao đến
+                        thấp</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-5 result">
+              <th:block th:each="product : ${products}">
+                <div class="col-lg-4 col-md-4 item-entry mb-4 zzz" style="text-align: center;">
+                  <input type="text" th:value="${product.cost}" hidden>
+                  <a th:href="@{/shop-single/}+${product.idProduct}" class="product-item md-height bg-white d-block">
+                    <img th:src="${product.img}" alt="Image" class="img-fluid" style="width:100%">
+                  </a>
+                  <h6 style="font-weight: bold; font-family: initial;"><a class="text-black"
+                      th:href="@{/shop-single/}+${product.idProduct}" th:utext="${product.name}">Gray Shoe</a></h6>
+                  <!-- <strong class="item-price"
+                    style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"
+                    th:utext="${product.cost}">$20.00</strong> -->
+                    <div th:if="${product.isDiscount}">
+                      <del style="color: #a4a4a4; font-weight: bolder;" class="item-price" th:utext="${product.cost}">$28.00</del>
+                      <strong style="font-size: larger;color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.discount}">$28.00</strong>
+                    </div>
+                    <div th:unless="${product.isDiscount}">
+                      <strong style="color: red; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="item-price" th:utext="${product.cost}">$28.00</strong>
+                    </div>
+                  <div style="color: #ffb329;" class="star-rating" th:if="${product.rate}" th:text="${product.rate}">
+                  </div>
+                </div>
+              </th:block>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <div class="site-block-27">
+                  <ul class="pagination d-block">
+                    <li th:if="${activePage}!=1">
+                      <a
+                        th:href="@{/shop/(pageNumber=${activePage - 1} ,pageSize=${pageSize} , option=${option}, strademark=${strademark},courtyard=${courtyard})}">&lt;</a>
+                    </li>
+                    <li th:unless="${activePage}!=1"><a href="#" aria-disabled="true">&lt;</a></li>
+                    <li th:if="${isEmty}" th:each="item : ${paginationList}"
+                      th:classappend="${item}==${activePage} ? 'active' : ''">
+                      <a th:href="@{/shop/(pageNumber=${item},pageSize=${pageSize}, option=${option}, strademark=${strademark},courtyard=${courtyard})}"
+                        th:utext="${item}">1</a>
+                    </li>
+                    <li th:if="${activePage}!=${paginationList.size()}">
+                      <a
+                        th:href="@{/shop/(pageNumber=${activePage + 1},pageSize=${pageSize}, option=${option}, strademark=${strademark},courtyard=${courtyard})}">&gt;</a>
+                    <li th:unless="${activePage}!=${paginationList.size()}"><a href="#" aria-disabled="true">&gt;</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 order-2 mb-5 mb-md-0 ">
+            <div class="border p-4 rounded mb-4">
+              <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+              <ul class="list-unstyled mb-0">
+                <th:block th:each="strademark : ${strademarkDTOs}">
+                  <li class="mb-1"><a th:href="@{/shop/(option=search , strademark=${strademark.name})}"
+                      class="d-flex text-black"><span th:utext="${strademark.name}">Men</span>&nbsp;&nbsp;<span
+                        class="text-black">(</span> <span class="text-black"
+                        th:utext="${strademark.numberProduct}">(2,220)</span><span class="text-black">)</span></a></li>
+                </th:block>
+                <hr>
+                <th:block th:each="courtyard : ${courtyardDTOs}">
+                  <li class="mb-1"><a th:href="@{/shop/(option=search , courtyard=${courtyard.type})}"
+                      class="d-flex text-black"><span th:utext="${courtyard.type}">Men</span>&nbsp;&nbsp;<span
+                        class="text-black">(</span> <span class="text-black"
+                        th:utext="${courtyard.numberProduct}">(2,220)</span><span class="text-black">)</span></a></li>
+                </th:block>
+              </ul>
+            </div>
+
+            <div class="border p-4 rounded mb-4">
+              <!-- <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+                <div id="slider-range" class="border-primary"></div>
+                <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white" disabled="" />
+              </div> -->
+              <div class="filter mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Lọc sản phẩm</h3>
+                <div class="models">
+                  <div class="checkbox">
+                    <label for="1" class="d-flex">
+                      <input type="checkbox" id="1" class="mr-2 mt-1" rel="500000" value="0" onchange="change();">
+                      <span class="text-black">Từ 0 - 500.000 VND</span>
+                      <input class="ceilling" type="text" value="500000" hidden>
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label for="2" class="d-flex text-black">
+                      <input type="checkbox" id="2" class="mr-2 mt-1" rel="1000000" value="500000" onchange="change();">
+                      Từ 500.000 - 1.000.00 VND
+                      <input class="ceilling" type="text" value="1000000" hidden>
+
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label for="3" class="d-flex">
+                      <input type="checkbox" id="3" class="mr-2 mt-1" rel="2000000" value="1000000"
+                        onchange="change();">
+                      <span class="text-black">Từ 1.000.000 - 2.000.00 VND</span>
+                      <input class="ceilling" type="text" value="2000000" hidden>
+
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label for="4" class="d-flex">
+                      <input type="checkbox" id="4" class="mr-2 mt-1" rel="999999999" value="2000000"
+                        onchange="change();">
+                      <span class="text-black">Trên 2.000.000 VND</span>
+                      <input class="ceilling" type="text" value="999999999" hidden>
+
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+              <!-- <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
+                <label for="s_sm" class="d-flex">
+                  <input type="checkbox" id="s_sm" class="mr-2 mt-1"> <span class="text-black">Small (2,319)</span>
+                </label>
+                <label for="s_md" class="d-flex">
+                  <input type="checkbox" id="s_md" class="mr-2 mt-1"> <span class="text-black">Medium (1,282)</span>
+                </label>
+                <label for="s_lg" class="d-flex">
+                  <input type="checkbox" id="s_lg" class="mr-2 mt-1"> <span class="text-black">Large (1,392)</span>
+                </label>
+              </div> -->
+
+              <div class="mb-4">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
+                <a href="#" class="d-flex color-item align-items-center">
+                  <span class="bg-danger color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Red
+                    (2,429)</span>
+                </a>
+                <a href="#" class="d-flex color-item align-items-center">
+                  <span class="bg-success color d-inline-block rounded-circle mr-2"></span> <span
+                    class="text-black">Green (2,298)</span>
+                </a>
+                <a href="#" class="d-flex color-item align-items-center">
+                  <span class="bg-info color d-inline-block rounded-circle mr-2"></span> <span class="text-black">Blue
+                    (1,075)</span>
+                </a>
+                <a href="#" class="d-flex color-item align-items-center">
+                  <span class="bg-primary color d-inline-block rounded-circle mr-2"></span> <span
+                    class="text-black">Purple (1,075)</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <script async defer crossorigin="anonymous"
+          src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=394669072180947&autoLogAppEvents=1"
+          nonce="5qCs81Xt"></script>
+        <div class="fb-comments" data-href="http://localhost:8080/shop" data-width="" data-numposts="5"></div>
+      </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+      function change() {
+        var value1 = document.querySelectorAll(".models input[type='checkbox']");
+        // var value2 = document.querySelectorAll(".models .ceilling");
+        var filters = {
+          floor: getClassOfCheckedCheckboxes(value1, 1),
+          ceilling: getClassOfCheckedCheckboxes(value1, 2)
+          // models: [0,500000,1000000,2000000],
+          // processors: [500000, 1000000,2000000,999999999]
+        };
+        console.log(filters.floor);
+        console.log(filters.ceilling);
+        filterResults(filters);
+      }
+
+      function getClassOfCheckedCheckboxes(checkboxes, flag) {
+        var classes = [];
+        if (checkboxes && checkboxes.length > 0) {
+          for (var i = 0; i < checkboxes.length; i++) {
+            var cb = checkboxes[i];
+
+            if (cb.checked) {
+              if (flag === 1) {
+                classes.push(parseInt(cb.value));
+              } else {
+                classes.push(parseInt(cb.getAttribute("rel")));
+              }
+            }
+          }
+        }
+        return classes;
+      }
+
+
+      function filterResults(filters) {
+        var rElems = document.querySelectorAll(".result div");
+        var hiddenElems = [];
+
+        if (!rElems || rElems.length <= 0) {
+          return;
+        }
+
+        for (var i = 0; i < rElems.length; i++) {
+          var el = rElems[i];
+
+          if (filters.floor.length > 0) {
+            var isHidden = true;
+
+            for (var j = 0; j < filters.floor.length; j++) {
+
+              var filter = filters.floor[j];
+              var filter1 = filters.ceilling[j];
+
+
+              if (parseInt(el.firstElementChild.defaultValue) >= filter && parseInt(el.firstElementChild.defaultValue) < filter1) {
+                isHidden = false;
+                break;
+              }
+            }
+            //  console.log(rElems);
+
+            // var a = el.firstElementChild.defaultValue;
+
+            // console.log(a);
+            // console.log(isHidden);
+
+            if (isHidden) {
+              hiddenElems.push(el);
+            }
+          }
+
+          // if (filters.processors.length > 0) {
+          //   var isHidden = true;
+
+          //   for (var j = 0; j < filters.processors.length; j++) {
+          //     var filter = filters.processors[j];
+
+          //     if (el.classList.contains(filter)) {
+          //       isHidden = false;
+          //       break;
+          //     }
+          //   }
+
+          //   if (isHidden) {
+          //     hiddenElems.push(el);
+          //   }
+          // }
+        }
+
+        for (var i = 0; i < rElems.length; i++) {
+          rElems[i].style.display = "block";
+        }
+
+        if (hiddenElems.length <= 0) {
+          return;
+        }
+
+        for (var i = 0; i < hiddenElems.length; i++) {
+          hiddenElems[i].style.display = "none";
+        }
+      }
+
+      function formatCash(str) {
+        return str.split('').reverse().reduce((prev, next, index) => {
+          return ((index % 3) ? next : (next + ',')) + prev
+        })
+      }
+
+      var costVNDs = document.querySelectorAll(".item-price");
+      for (var i = 0; i < costVNDs.length; i++) {
+        var cost = costVNDs[i];
+        cost.innerHTML = formatCash(String(parseInt(cost.textContent))) + "đ";
+      }
+
+      var ratingElement = document.querySelectorAll('.star-rating');
+      ratingElement.forEach(element => {
+        var rate = parseFloat(element.textContent);
+        var array = new Array();
+        var starRate = "";
+        for ( ; rate>0 ; --rate){
+          if(rate-1 === -0.5){
+            // array.push(rate);
+            starRate += "<i class=\"fas fa-star-half-alt\"></i>"
+          }else{
+            // array.push(1);
+            starRate += "<i class=\"fas fa-star\"></i>"
+          }   
+        }        
+        element.innerHTML = starRate;
+      });
+    </script>
+  </th:block>
+
+</body>
+
+</html>

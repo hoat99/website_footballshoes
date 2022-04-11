@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="margin: 50px 20px;">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Tên thương hiệu</th>
+                    <th>Ảnh</th>
+                    <!-- <th>Hành động</th> -->
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>id</th>
+                    <th>Tên thương hiệu</th>
+                    <th>Ảnh</th>
+                    <!-- <th>Hành động</th> -->
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script>
+        // var data = [
+        //     [
+        //         "Tiger Nixon",
+        //         "System Architect",
+        //         "Edinburgh",
+        //         "5421",
+        //         "2011/04/25",
+        //         "$3,120"
+        //     ],
+        //     [
+        //         "Garrett Winters",
+        //         "Director",
+        //         "Edinburgh",
+        //         "8422",
+        //         "2011/07/25",
+        //         "$5,300"
+        //     ]
+        // ]
+        // var aaa;
+        // $.ajax({
+        //     url: '/admin/brand/find-all1',
+        //     type: 'GET',
+        //     data: "data",
+
+        //     contentType: 'application/json; charset=utf-8',
+        //     dataType: "json",
+        //     success: function (data) {
+        //         aaa = data;
+        //         console.log(aaa)
+        //     }
+        // });
+        // console.log($.ajax({
+        //     url: '/admin/brand/find-all1',
+        //     data: "data",
+        //     success: function (data) {
+        //         console.log(data)
+        //     }
+        // }));
+        // var data = $.ajax({
+        //     url: '/admin/brand/find-all1',
+        //     data: "data",
+        // }).responseJSON
+        // console.log(typeof data);
+
+        // var data = [{
+
+        //     "idStrademark": "idStrademark",
+        //     "name": "name",
+        //     "img": "img"
+        // }];
+        $(document).ready(function () {
+            var table = $('#dataTable').DataTable({
+                // "processing": true,
+                // "serverSide": false,
+                // "ajax": "/admin/brand/find-all1",
+
+
+                // columns: [{ "data": "idStrademark" },
+                // { "data": "name" },
+                // { "data": "img" }
+                // ]
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Vietnamese.json"
+                },
+                "ajax": {
+                    url: "/admin/brand/find-all",
+                    data: "data",
+                    success: function (data) {
+                        console.log(data)
+                    }
+                },
+                //                 columnDefs: [{
+                //     "defaultContent": "-",
+                //     "targets": "_all"
+                //   }]
+                // data: aaa
+
+
+
+                "columnDefs": [{
+                    data: "data",
+                    "targets": -1,
+
+                    // "data": "img",
+                    // "render": function (data) { return '<img height="50%" width="50%" src="' + data + '">' },
+                    "defaultContent": `<button type="button" id = "btnEdit" data-toggle="modal" data-target="#modalEdit" class="btn btn-primary"><i class="far fa-edit"></i> Sửa</button>&nbsp;
+                                       <button type="button" class="btn btn-danger" id = "btnDelete" data-toggle="modal" data-target="#delete-hdn"><i class="far fa-trash-alt"></i> Xóa</button>`
+                }]
+            });
+
+            //     $('#btnCreateBrand').click(() => {
+            //         let data = {
+            //             name: $('#modalCreate input')[0].value,
+            //             img: $('#modalCreate input')[1].value
+            //         }
+            //         createBrand(data, table);
+            //     });
+
+            //     $('#dataTable').on('click', '#btnEdit', function () {
+            //         var data = table.row($(this).parents('tr')).data();
+            //         console.log(data);
+            // });
+            // var aaa;
+            // $.ajax({
+            //     url: '/admin/brand/find-all1',
+            //     data: "data",
+            //     success: function (data) {
+            //         aaa = data;
+            //         console.log(aaa)
+            //     }
+            // });
+            console.log('aaaaaaaaaaa');
+        });
+    </script>
+</body>
+
+</html>

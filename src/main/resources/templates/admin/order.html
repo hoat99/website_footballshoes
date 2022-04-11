@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title th:utext="${title}"></title>
+
+    <th:block id="custom-style">
+        <link href="/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <style>
+            .modal-second {
+                z-index: 1052;
+            }
+
+            .modal-backdrop {
+                position: inherit;
+                z-index: 1051;
+
+            }
+        </style>
+    </th:block>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="mainContent">
+
+                    <!-- Page Heading -->
+                    <br>
+                <h3 style="text-align: center;" class="m-0 font-weight-bold text-primary">Quản lý đơn hàng</h3>
+                <br>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Quản lý đơn hàng</h6>                            
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Tài khoản</th>
+                                            <th>Ngày đặt hàng</th>
+                                            <th>Ngày nhận hàng</th>
+                                            <th>Số tiền</th>                                               
+                                            <th>Hình thức thanh toán</th>
+                                            <th>Thẻ</th> 
+                                            <th>Trạng thái</th>                              
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Tài khoản</th>
+                                            <th>Ngày đặt hàng</th>
+                                            <th>Ngày nhận hàng</th>
+                                            <th>Số tiền</th>                                                
+                                            <th>Hình thức thanh toán</th>
+                                            <th>Thẻ</th>   
+                                            <th>Trạng thái</th>                            
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Modal -->                 
+                    <div class="modal fade modal-second" id="modalEdit">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel1">Cập nhật đơn hàng</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form id="formUpdate">
+                                    <div class="modal-body">                                      
+                                     
+                                        <div class="form-group">
+                                            <label for="id">Id</label>
+                                            <input name="id" type="text" class="form-control" id="id" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Tài khoản</label>
+                                            <input name="username" id="username" type="text" class="form-control" disabled>
+                                        </div> 
+                                                                         
+                                        <div>
+                                            <div class="form-group" style="display: block;">
+                                                <label for="idStatus">Trạng thái: </label>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    name="idStatus" id="idStatus">
+                                                    <option></option>
+                                                    <option value="1">Chờ xác nhận</option>
+                                                    <option value="2">Đang lấy hàng</option>
+                                                    <option value="3">Đang giao hàng</option>
+                                                    <option value="4">Đã nhận hàng</option>
+                                                
+                                                </select>
+                                            </div>                                         
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-primary">Cập
+                                            nhật</button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <th:block id="custom-script">
+        <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script>
+
+            // function createBrand(data, table) {
+            //     $.ajax({
+            //         url: '/create-brand',
+            //         type: 'POST',
+            //         data: JSON.stringify(data),
+            //         contentType: 'application/json',
+            //         success: () => {
+            //             console.log(data);
+            //             $('#modalCreate').modal('hide');
+            //             table.ajax.reload();
+            //             $('#modalCreate form')[0].reset();
+            //         }
+            //     });
+
+            // }
+
+            $(document).ready(function () {
+                var table = $('#dataTable').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Vietnamese.json"
+                    }, "ajax": {
+                        url: "/admin/order/get-all",
+                        data: "data"
+
+                    },
+                    columns: [
+                        { data: 0 },
+                        { data: 1 },
+                        { data: 2 },
+                        { data: 3 },
+                        { data: 4 },
+                        { data: 7 },
+                        { data: 6 },
+                        { data: 5 }
+                    ],
+                    columnDefs:
+                        [                          
+                            {
+                                "targets": 8,
+                                "data": null,
+                                "defaultContent": `<button type="button" id = "btnEdit" data-toggle="modal" data-target="#modalEdit" class="btn btn-primary"><i class="far fa-edit"></i> Sửa</button>
+                                                     <button type="button" class="btn btn-warning" id = "btnInfo"><i class="far fa-trash-alt"></i> Xem chi tiết</button>
+                                                    `
+                            }
+                        ],
+                });
+                            
+                $("#formUpdate").submit(function (evt) {
+                    evt.preventDefault();
+                    let data = {
+                        idOrder: $('#id').val(),
+                        idStatus: $('#idStatus').val(),
+                    }
+                    console.log(data);
+                    $.ajax({
+                        url: '/admin/order/update',
+                        type: 'put',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: () => {
+                            alert('Cập nhật thành công!')
+                            $('#modalEdit').modal('hide');
+                            table.ajax.reload();
+                            $('#modalEdit form')[0].reset();
+                        },
+                        error: function () {
+                            alert('Cập nhật thất bại!');                          
+                        }
+                    });
+                    return false;
+                });
+
+                $('#dataTable').on('click', '#btnEdit', function () {
+                    var data = table.row($(this).parents('tr')).data();
+                    console.log(data);
+                    // $('#modalCreate').modal('hide');
+                    // $('#modalEdit').modal('show');
+                    $('#id').val(data[0]);
+                    $('#username').val(data[1]);
+                    
+                });   
+                $('#dataTable').on('click', '#btnInfo', function () {
+                    var data = table.row($(this).parents('tr')).data();
+                    console.log(data);
+                    // $('#modalCreate').modal('hide');
+                    // $('#modalEdit').modal('show');
+                   location.href = 'order-info/'+data[0];
+                });            
+            });
+            $(document).on('hidden.bs.modal', function () {
+                if ($('.modal:visible').length) {
+                    $('body').addClass('modal-open');
+                }
+            });
+
+        </script>
+    </th:block>
+</body>
+
+</html>

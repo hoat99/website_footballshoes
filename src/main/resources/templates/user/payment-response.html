@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+        .payment-info li{
+            margin-left: -2.5em;
+        }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+      
+    <div class="container">
+        <div class="bg-light py-3">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong
+                    class="text-black">Thông tin thanh toán</strong></div>
+              </div>
+            </div>
+          </div>
+        <div class="row" style="text-align: center;justify-content: center; margin-top: 2em;">
+            <h4 th:if="${cancel}" style="color: #238f00;"> Hủy thanh toán thành công!</h4>
+            <ul th:if="${success}" class="payment-info" style="width:50%; list-style-type: none;border: 1px black solid;">
+                <li style="margin: 2em 0 ;"><h4 style="color: #238f00;">Thanh toán đơn hàng thành công</h4></li>
+                <li><h6>Mã thanh toán</h6></li>
+                <li><p th:if="${vnp_TxnRef}" th:utext="${vnp_TxnRef}"></p></li>
+                <li><h6>Số tiền</h6></li>
+                <li><p th:if="${amount}" th:utext="${amount}"></p></li>
+                <li><h6>Ngân hàng</h6></li>
+                <li><p th:if="${vnp_BankCode}" th:utext="${vnp_BankCode}"></p></li>
+                <li><h6>Loại thẻ</h6></li>
+                <li><p th:if="${vnp_CardType}" th:utext="${vnp_CardType}"></p></li>
+                <li><h6>Thông tin thanh toán</h6></li>
+                <li><p th:if="${vnp_OrderInfo}" th:utext="${vnp_OrderInfo}"></p></li>
+                <li><h6>Ngày thanh toán</h6></li>
+                <li><p th:if="${vnp_PayDate}" th:utext="${vnp_PayDate}"></p></li>
+                <li> <h6>Trạng thái thanh toán</h6></li>
+                <li><p th:if="${vnp_TransactionStatus}" th:utext="${vnp_TransactionStatus}"></p></li>
+               <li><a th:href="@{order}">Xem thông tin đơn hàng</a></li>
+              </ul>
+        </div>
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+    
+  </th:block>
+</body>
+
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+    <style>
+     
+
+      .padding {
+        padding: 3rem !important
+      }
+
+      .user-card-full {
+        overflow: hidden
+      }
+
+      .card {
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+        box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+        border: none;
+        margin-bottom: 30px
+      }
+
+      .m-r-0 {
+        margin-right: 0px
+      }
+
+      .m-l-0 {
+        margin-left: 0px
+      }
+
+      .user-card-full .user-profile {
+        border-radius: 5px 0 0 5px
+      }
+
+      .bg-c-lite-green {
+        background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+        background: linear-gradient(to right, #ee5a6f, #f29263)
+      }
+
+      .user-profile {
+        padding: 20px 0
+      }
+
+      .card-block {
+        padding: 1.25rem
+      }
+
+      .m-b-25 {
+        margin-bottom: 25px
+      }
+
+      .img-radius {
+        border-radius: 5px
+      }
+
+      h6 {
+        font-size: 14px
+      }
+
+      .card .card-block p {
+        line-height: 25px
+      }
+
+      @media only screen and (min-width: 1400px) {
+        p {
+          font-size: 14px
+        }
+      }
+
+      .card-block {
+        padding: 1.25rem
+      }
+
+      .b-b-default {
+        border-bottom: 1px solid #e0e0e0
+      }
+
+      .m-b-20 {
+        margin-bottom: 20px
+      }
+
+      .p-b-5 {
+        padding-bottom: 5px !important
+      }
+
+      .card .card-block p {
+        line-height: 25px
+      }
+
+      .m-b-10 {
+        margin-bottom: 10px
+      }
+
+      .text-muted {
+        color: #919aa3 !important
+      }
+
+      .b-b-default {
+        border-bottom: 1px solid #e0e0e0
+      }
+
+      .f-w-600 {
+        font-weight: 600
+      }
+
+      .m-b-20 {
+        margin-bottom: 20px
+      }
+
+      .m-t-40 {
+        margin-top: 20px
+      }
+
+      .p-b-5 {
+        padding-bottom: 5px !important
+      }
+
+      .m-b-10 {
+        margin-bottom: 10px
+      }
+
+      .m-t-40 {
+        margin-top: 20px
+      }
+
+      .user-card-full .social-link li {
+        display: inline-block
+      }
+
+      .user-card-full .social-link li a {
+        font-size: 20px;
+        margin: 0 10px 0 0;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out
+      }
+    </style>
+  </th:block>
+</head>
+
+<body>
+
+  <div id="mainContent">
+
+    <div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span><strong
+              class="text-black">Tài khoản cá nhân</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="display: flex; margin-top: 2em;">
+      <div class="row">
+        <div class="col-lg-7 col-sm-12" style="width:100%;">
+
+          <div class="card user-card-full" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+            <div class="row m-l-0 m-r-0">
+              <div class="col-sm-4 bg-c-lite-green user-profile">
+                <div class="card-block text-center text-white">
+                  <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                      alt="User-Profile-Image"> </div>
+                  <h6 class="f-w-600" th:utext="${user.username}">Hembo Tingor</h6>
+
+                  <a title="Sửa thông tin" style="color: white;" data-toggle="collapse" href="#multiCollapseExample1"
+                    role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i
+                      class="fas fa-edit"></i></a>
+                  <a title="Đổi mật khẩu" style="color: white;" data-toggle="collapse"
+                    data-target="#multiCollapseExample2" href="#multiCollapseExample2" aria-expanded="false"
+                    aria-controls="multiCollapseExample2" role="button"><i class="fas fa-key"></i></a>
+                    <a title="Đơn hàng" style="color: white;" th:href="@{/order}"><i class="fas fa-shopping-cart"></i></a>
+
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="card-block">
+                  <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                  <div class="row">
+                    <div class="col-12 d-flex">
+                      <p class="m-b-10 f-w-600">Email: </p>&nbsp;&nbsp;
+                      <p class="text-muted f-w-400" th:utext="${user.email}">rntng@gmail.com</p>
+                    </div>
+                    <div class="col-12 d-flex">
+                      <p class="m-b-10 f-w-600">Điện thoại: </p>&nbsp;&nbsp;
+                      <p class="text-muted f-w-400" th:utext="${user.phone}">98979989898</p>
+                    </div>
+                    <div class="col-12 d-flex">
+                      <p class="m-b-10 f-w-600">Họ tên: </p>&nbsp;&nbsp;
+                      <p class="text-muted f-w-400" th:utext="${user.name}">98979989898</p>
+                    </div>
+                    <div class="col-12 d-flex">
+                      <p class="m-b-10 f-w-600">Giới tính: </p>&nbsp;&nbsp;
+                      <p class="text-muted f-w-400" th:utext="${user.gender}">98979989898</p>
+                    </div>
+                    <div class="col-12 d-flex">
+                      <p class="m-b-10 f-w-600">Địa chỉ: </p>&nbsp;&nbsp;
+                      <p class="text-muted f-w-400" th:utext="${user.address}">98979989898</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-5 col-sm-12">
+          <div>
+            <h6 style="color: green;" th:if="success" th:utext="${success}"></h6>
+            <h6 style="color: red;" th:if="fail" th:utext="${fail}"></h6>
+          </div>
+          <div class="collapse" id="multiCollapseExample1" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+            <div class="card card-body">
+              <div class="models">
+                <div>
+                  <div>
+                    <form>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label>Tên tài khoản</label>
+                          <input th:value="${user.username}" name="username" id="username" type="text"
+                            class="form-control" disabled>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label>Email</label>
+                          <input th:value="${user.email}" name="email" id="email" type="email" class="form-control"
+                            disabled>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label>Giới tính</label>
+                          <input th:value="${user.gender}" name="gender" id="gender" type="text" class="form-control">
+                        </div>
+                        <div class=" form-group col-md-6">
+                          <label>Họ Tên</label>
+                          <input th:value="${user.name}" name="name" id="name" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label>Địa chỉ</label>
+                          <input th:value="${user.address}" name="address" id="address" type="text"
+                            class="form-control">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label>Số điện thoại</label>
+                          <input th:value="${user.phone}" name="phone" type="text" id="phone" class="form-control">
+                        </div>
+
+                      </div>
+                      <button onclick="updateProfile()" type="button" class="btn btn-primary">Cập
+                        nhật</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapse" id="multiCollapseExample2" style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+            <div class="card card-body">
+              <div>
+                <div>
+                  <div class="col-md-12">
+                    <form action="/update-password" method="post" autocomplete="false">
+                      <div class="form-row d-block">
+
+                        <input th:value="${user.username}" name="username1" id="username1" type="text"
+                          class="form-control" hidden>
+
+                        <div class="form-group  ">
+                          <label>Mật khẩu cũ</label>
+                          <input required autofocus autocomplete="new-password" name="oldPassword" id="oldPassword"
+                            type="password" class="form-control">
+                        </div>
+
+                        <div class="form-group  ">
+                          <label>Mật khẩu mới</label>
+                          <input required name="newPassword" id="newPassword" type="password" class="form-control">
+                        </div>
+                        <div class=" form-group ">
+                          <label>Nhập lại mật khẩu</label>
+                          <input required oninput="checkPasswordMatch(this);" name="confirmPassword"
+                            id="confirmPassword" type="password" class="form-control">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <th:block id="custom-script">
+    <script>
+      function updateProfile() {
+        let data = {
+          username: $('#username').val(),
+          gender: $('#gender').val(),
+          name: $('#name').val(),
+          address: $('#address').val(),
+          email: $('#email').val(),
+          gender: $('#gender').val(),
+          phone: $('#phone').val()
+        }
+
+        $.ajax({
+          method: "post",
+          url: "/api/update-user",
+          data: data,
+          dataType: JSON.stringify(data),
+          success: () => {
+            console.log("abc");
+
+          }
+        })
+        alert("Cập nhật thành công");
+        location.reload();
+      }
+
+      function checkPasswordMatch(fieldConfirmPassword) {
+        if (fieldConfirmPassword.value != $("#newPassword").val()) {
+          fieldConfirmPassword.setCustomValidity("Mật khẩu không giống nhau!");
+        } else {
+          fieldConfirmPassword.setCustomValidity("");
+        }
+      }
+    </script>
+  </th:block>
+</body>
+
+</html>

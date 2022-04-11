@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/layouts/user-layout :: user-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+  <th:block id="custom-style">
+  
+  </th:block>
+</head>
+
+<body>
+
+
+  <div id="mainContent">
+    <div class="bg-light py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 mb-0"><a th:href="@{/}">Trang chủ</a> <span class="mx-2 mb-0">/</span><strong
+                class="text-black">Đăng kí tài khoản</strong></div>
+          </div>
+        </div>
+      </div>
+    <div class="container text-center" style="margin-top: 3em;">
+        <h3 style="color: rgb(2, 177, 2);">Đăng kí tài khoản thành công!</h3>
+        <p>Hãy kiểm tra email để kích hoạt tài khoản.</p>     
+    </div>
+  </div>
+
+  <th:block id="custom-script">
+   
+ 
+  </th:block>
+</body>
+
+</html>

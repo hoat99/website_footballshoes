@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layouts/admin-layout :: main-fragment(
+                                                ~{:: #custom-style},
+                                                ~{:: #mainContent},
+                                                ~{:: #custom-script}
+                                               )}">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <th:block id="custom-style">
+        <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+        <title th:utext="${title}"></title>
+        <style>
+            .image{
+                width: 75px;
+                height: 75px;
+            }
+        </style>
+    </th:block>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="mainContent">
+                    <div class="container" style="padding-top: 2em;">
+                        <div class="row">
+                            <p>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1"
+                                    role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Tạo bài
+                                    viết</a>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#multiCollapseExample2" aria-expanded="false"
+                                    aria-controls="multiCollapseExample2">Thêm ảnh sản phẩm</button>
+                            </p>
+                            <div class="container" style="padding-top: 2em;">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="collapse" id="multiCollapseExample1">
+                                            <div class="card card-body">
+                                                <div class="models">
+                                                    <div class="text-right">
+                                                        <label for="inputPassword2" class="sr-only">Từ khóa</label>
+                                                        <input type="text" name="search-img" class="search-img"
+                                                            id="search-img" placeholder="Nhập tên sản phẩm">
+                                                        <button type="submit" class="btn btn-primary mb-2"
+                                                            onclick="change();">Tìm
+                                                            kiếm</button>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-md-8" style="margin-bottom: 50px;">
+                                                                    <form method="post">
+                                                                        <textarea name="editor1"></textarea>
+                                                                        <label for="">Tên sản phẩm: </label>
+                                                                        <input type="text" id="nameProduct"
+                                                                            name="nameProduct">
+                                                                        <button id="btnCreate" type="button"
+                                                                            class="btn btn-primary">Tạo
+                                                                            bài viết</button>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-md-4 result" style="display: none;"
+                                                                    id="result">
+                                                                    <p id="notFound" style="color: red;display: none;">
+                                                                        Ko tìm thấy bản
+                                                                        ghi nào!</p>
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th scope="col">Tên</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <th:block
+                                                                                th:each="imageArticle : ${imageArticles}">
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td
+                                                                                        th:utext="${imageArticle.nameProduct}">
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img1}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img2}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img3}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img4}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img5}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                                <tr
+                                                                                    th:class="${imageArticle.nameProduct}">
+                                                                                    <td><img th:src="${imageArticle.img6}"
+                                                                                            alt="" width="50%"></td>
+                                                                                </tr>
+                                                                </div>
+                                                                </th:block>
+                                                                </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container" style="padding-top: 2em;">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="collapse" id="multiCollapseExample2">
+                                                <div class="card card-body">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h3 style="text-align: center;">Create</h3>
+                                                                <br>
+                                                                <form id="formCreate" enctype="multipart/form-data">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputPassword1">Tên sản phẩm
+                                                                        </label>
+                                                                        <input name="name" type="text"
+                                                                            class="form-control" id="name">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 1</label>
+                                                                        <!-- <input name="img1" id="img1" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(0)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 2</label>
+                                                                        <!-- <input name="img2" id="img2" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(1)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 3</label>
+                                                                        <!-- <input name="img3" id="im3" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(2)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 4</label>
+                                                                        <!-- <input name="img4" id="im4" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(3)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 5</label>
+                                                                        <!-- <input name="img5" id="img5" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(4)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Ảnh 6</label>
+                                                                        <!-- <input name="img6" id="img6" type="file"
+                                                      accept="image/png, image/jpeg, image/jpg" class="form-control"
+                                                      placeholder="image"> -->
+                                                                        <div style="display: flex;">
+                                                                            <input type="file"
+                                                                                accept="image/png, image/jpeg, image/jpg"
+                                                                                class="form-control photo col-8">
+                                                                            <button class="col-4 btn btn-primary"
+                                                                                onclick="uploadImage(5)"
+                                                                                type="button">Tải ảnh lên</button>
+                                                                        </div>
+                                                                        <br>
+                                                                        <img class="image" src="" alt="">
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Create</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <th:block id="custom-script">
+        <script>
+            CKEDITOR.replace('editor1');
+            function abc() {
+                var data = CKEDITOR.instances.editor1.getData();
+                console.log(data);
+            }
+
+            $("#formCreate").submit(function (evt) {
+                evt.preventDefault();
+                let data = {
+                    name: $('#name').val(),
+                    img1: document.querySelectorAll('.image')[0].src,
+                    img2: document.querySelectorAll('.image')[1].src,
+                    img3: document.querySelectorAll('.image')[2].src,
+                    img4: document.querySelectorAll('.image')[3].src,
+                    img5: document.querySelectorAll('.image')[4].src,
+                    img6: document.querySelectorAll('.image')[5].src,
+                }
+                console.log(data);
+                $.ajax({
+                    url: '/admin/article-product/create-image-article',
+                    type: 'POST',
+                    data: data,
+                    success: () => {
+                        alert('Thêm thành công!')
+                        location.reload();               
+                    }
+                });
+            });
+
+            function createArticle() {
+                let data = {
+                    nameProduct: $('#nameProduct').val(),
+                    content: CKEDITOR.instances.editor1.getData()
+                }
+                $.ajax({
+                    method: 'post',
+                    url: '/admin/article-product/create',
+                    data: data,
+                    success: res => {
+                        alert("thêm thành công!");
+                        console.log(data);
+                    }
+                });
+            }
+
+            $('#btnCreate').click(() => {
+
+                createArticle();
+            });
+
+
+
+            //filter img
+            function change() {
+                var value = document.getElementById('search-img').value;
+                console.log(value);
+                filterResults(value);
+            }
+            function filterResults(filters) {
+                var rElems = document.querySelectorAll(".result table tbody tr");
+                var table1 = document.getElementById("result");
+                var hiddenElems = [];
+
+                if (!rElems || rElems.length <= 0) {
+                    return;
+                }
+                for (var i = 0; i < rElems.length; i++) {
+                    var el = rElems[i];
+                    var isHidden = true;
+                    if (el.className === filters) {
+                        isHidden = false;
+                    }
+                    if (isHidden) {
+                        hiddenElems.push(el);
+                    }
+                }
+
+                if (hiddenElems.length === rElems.length) {
+                    document.getElementById('notFound').style.display = "block";
+                    table1.style.display = "none";
+
+                } else {
+                    document.getElementById('notFound').style.display = "none";
+                    table1.style.display = "block";
+
+                }
+
+                for (var i = 0; i < rElems.length; i++) {
+                    rElems[i].style.display = "block";
+                    table1.style.display = "block";
+                }
+
+                if (hiddenElems.length <= 0) {
+                    return;
+                }
+
+                for (var i = 0; i < hiddenElems.length; i++) {
+                    hiddenElems[i].style.display = "none";
+                }
+            }
+        </script>
+    </th:block>
+</body>
+
+</html>
